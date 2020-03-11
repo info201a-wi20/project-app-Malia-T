@@ -14,7 +14,15 @@ home <- tabPanel(
 #select by year
 #select by country
 q1 <- tabPanel(
-  "Econ. Status & Grad Rates"
+  "Econ. Status & Grad Rates",
+  titlePanel("Is there a relationship between economic 
+             status and graduation rates?"),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput(inputId = "year_slider", label = "Pick a Year",
+                  min = 2005, max = 2017, value = 2005)
+    )
+  )
 )
 q2 <- tabPanel(
   "Education & Econ. Status Ranked"
