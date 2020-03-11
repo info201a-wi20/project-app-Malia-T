@@ -21,12 +21,20 @@ q1 <- tabPanel(
     sidebarPanel(
       sliderInput(inputId = "year_slider", label = "Pick a Year",
                   min = 2005, max = 2017, value = 2005)
+    ),
+    mainPanel(
+      h3("Relationship Between Economic Status and Graduation Rates"),
+      p(
+        renderPlot(q1)
+      )
     )
   )
 )
+
 q2 <- tabPanel(
   "Education & Econ. Status Ranked"
 )
+
 q3 <- tabPanel(
   "US Correlation & US Events"
 )
