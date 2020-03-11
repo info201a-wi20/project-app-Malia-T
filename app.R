@@ -8,25 +8,24 @@ source("project.R")
 
 ui <- fluidPage (
   titlePanel("Study on Economic Status and Education Rates by Country"),
-  h2("Data Introduction"),
-  p(),
-  show_edu_input
-)
-
-show_edu_input <- checkboxInput(
-  inputId = "edu_graph",
-  label = "Show Education Graph",
-  value = TRUE
+  navbarPage(
+    title = "",
+    tabPanel(title = "Home"),
+    tabPanel(title = "Econ. Status & Grad Rates"),
+    tabPanel(title = "Education & Econ. Status Ranked"),
+    tabPanel(title = "US Correlation & US Events"),
+    tabPanel(title = "Worldwide GDP & Graduation Rate")
+  ),
+  
+  h2("Data Introduction")
 )
 
 server <- function(input, output) {
-  if(input_list$edu_graph == TRUE){
-    the_plot <- the_plot + geom_smooth(mapping = aes_string(
-      x = input_list$feature_choice,
-      y = "price",
-      color = "cut"
-    ),se = FALSE)
-  }
+  
+  #UI layouts (allows for nesting!)
+  #static content
+  #control widgets
+  #reactive outputs
 }
 
 shinyApp(ui = ui, server = server)
