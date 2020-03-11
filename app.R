@@ -5,7 +5,6 @@ library(ggplot2)
 library(maps)
 
 source("project.R")
-<<<<<<< HEAD
 #Data introduction
 
 #Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
@@ -27,7 +26,6 @@ source("project.R")
 #**World Bank Data: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar**
 #**OECD Data: https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES**
   
-=======
 home <- tabPanel(
   "Home",
   titlePanel("Introduction")
@@ -81,4 +79,4 @@ server <- function(input, output) {
 }
 
 shinyApp(ui = ui, server = server)
->>>>>>> 896633ed0cbb13d6ecbda978bd66af931dcc71ae
+
