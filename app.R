@@ -7,7 +7,7 @@ library(maps)
 source("project.R")
 
 ui <- fluidPage (
-  h1("Study on Economic Status and Education Rates by Country"),
+  titlePanel("Study on Economic Status and Education Rates by Country"),
   
   h2("Data Introduction"),
   p()
@@ -15,6 +15,10 @@ ui <- fluidPage (
 
 server <- function(input, output) {
   
+#UI layouts (allows for nesting!)
+#static content
+#control widgets
+#reactive outputs
 }
 
 shinyApp(ui = ui, server = server)
