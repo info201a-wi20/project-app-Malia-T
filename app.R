@@ -56,22 +56,19 @@ q3 <- tabPanel(
 
 q4 <- tabPanel(
   "Worldwide GDP & Graduation Rate",
-  sidebarLayout(
-    sidebarPanel(
       #select year#
       #############
       year_input <- selectInput(
         inputId = "year_map",
         label = "Year",
         choices = c(2005,2010,2011,2012,2013,2014,2015,2016,2017),
-        selected = 2005)
-    ),
+        selected = 2005),
     mainPanel(
       tabsetPanel(
       tabPanel("Education", plotOutput(outputId = "edu_map_plot")),
       tabPanel("Economy", plotOutput(outputId = "eco_map_plot")))
     )
-))
+)
 
 ui <- fluidPage (
   titlePanel("Study on Economic Status and Education Rates by Country"),
