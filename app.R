@@ -9,6 +9,7 @@ source("project.R")
 ui <- fluidPage (
   titlePanel("Study on Economic Status and Education Rates by Country"),
   navbarPage(
+    title = "",
     tabPanel(title = "Home"),
     tabPanel(title = "Econ. Status & Grad Rates"),
     tabPanel(title = "Education & Econ. Status Ranked"),
