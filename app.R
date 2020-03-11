@@ -25,7 +25,7 @@ q1 <- tabPanel(
     mainPanel(
       h3("Relationship Between Economic Status and Graduation Rates"),
       p(
-        renderPlot(q1)
+        plotOutput(outputId = "plot_1_output")
       )
     )
   )
@@ -70,7 +70,15 @@ ui <- fluidPage (
 
 
 server <- function(input, output) {
-  
+  output$plot_1_output <- renderPlot({
+    ggplot(mean_data,aes(x = mean_gdp,y = mean_grad_rate ))+
+      
+      geom_point(color = "red")+
+      labs(title = "Economy and Rates of Education Change", x = "GDP in USD", y = "Graduation Rate %")+
+      geom_smooth(method=lm, se = FALSE)+
+      theme_minimal()+
+      theme(axis.line = element_line(size = 0.5, linetype = "solid",colour = "black"))
+  })
 }
 
 shinyApp(ui = ui, server = server)
