@@ -9,14 +9,14 @@ source("project.R")
 ui <- fluidPage (
   titlePanel("Study on Economic Status and Education Rates by Country"),
   navbarPage(
-    tabPanel(title = "Home")
+    tabPanel(title = "Home"),
     tabPanel(title = "Econ. Status & Grad Rates"),
     tabPanel(title = "Education & Econ. Status Ranked"),
     tabPanel(title = "US Correlation & US Events"),
     tabPanel(title = "Worldwide GDP & Graduation Rate")
   ),
   
-  h2("Data Introduction"),
+  h2("Data Introduction")
 )
 
 server <- function(input, output) {
