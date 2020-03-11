@@ -80,4 +80,4 @@ server <- function(input, output) {
 }
 
 shinyApp(ui = ui, server = server)
->>>>>>> 896633ed0cbb13d6ecbda978bd66af931dcc71ae
+
