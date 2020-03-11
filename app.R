@@ -9,10 +9,8 @@ source("project.R")
 
 home <- tabPanel(
   "Home",
-  titlePanel("Introduction") 
-)
-p ("Data introduction
-   Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
+  titlePanel("Introduction"),
+  p ("Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
    Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:
    Is there a relationship between economic status of a country and their graduation rates?
    This question is aimed to help us finally analyze and answer if there is a relationship between the two factors; if there is a correlation between the two, and if so, the type of correlation (positive, negative).
@@ -27,6 +25,8 @@ p ("Data introduction
    The data was collected and distributed by the respective organizations.
    World Bank Data: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar
    OECD Data: https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES")
+)
+
 
 
 #correlation
