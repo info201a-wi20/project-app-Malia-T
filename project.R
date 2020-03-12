@@ -75,15 +75,22 @@ colnames(country_names)<- c("iso3c", "Country")
 #mean dataframe that has the mean graduation rate and mean gdp rate for
 #each countries.
 #the graduation rate and gdp was divided by the total number of years recorded in dataset
-mean_data <- group_by(df,iso3c) %>% 
-  summarise(mean_grad_rate = mean(Education), mean_gdp = mean(Economy)) %>% 
+mean_data <- group_by(df,iso3c) %>%
+  summarise(mean_grad_rate = mean(Education), mean_gdp = mean(Economy)) %>%
   left_join(country_names, by = "iso3c")
 
-
-
-#the world mean is the mean grad rate and mean gdp rate of all countries from 2005 to 2017
-world_mean <- group_by(df, Year) %>% 
-  summarise(mean_grad_rate = mean(Education),mean_gdp = mean(Economy)) 
+# country_names <- distinct(edu, Country_code, Country)
+# 
+# #mean dataframe that has the mean graduation rate and mean gdp rate for
+# #each countries.
+# #the graduation rate and gdp was divided by the total number of years recorded in dataset
+# mean_data <- group_by(df,Country_code) %>% 
+#   summarise(mean_grad_rate = mean(grad_rate), mean_gdp = mean(GDP)) %>%  
+#   left_join(country_names, by = "Country_code")
+# 
+# #the world mean is the mean grad rate and mean gdp rate of all countries from 2005 to 2017
+# world_mean <- group_by(df, Year) %>% 
+#   summarise(mean_grad_rate = mean(Education),mean_gdp = mean(Economy)) 
 
 
 
