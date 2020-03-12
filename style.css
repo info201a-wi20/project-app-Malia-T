@@ -17,8 +17,10 @@ body{
   background-color: #333;
 }
 
-nav {
-  opacity: 50;
-  background-color: #607;
+.navbar-default {
+  background-color: #b1b1b3;
+}
 
+.navbar-default:hover {
+  background-color: #aaaaaa
 }
