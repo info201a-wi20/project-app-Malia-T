@@ -143,9 +143,9 @@ q3 <- tabPanel(
           plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
         )
       ),
-      p(
-        tableOutput("usa") # Displays usa data frame table on side bar panel
-      )
+#      p(
+#        tableOutput("usa") # Displays usa data frame table on side bar panel
+#      )
     )
   )
 )
