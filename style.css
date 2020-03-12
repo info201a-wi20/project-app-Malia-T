@@ -1,6 +1,10 @@
 
-title{
+p{
   font-family: 'Comic Sans';
   color: black;
+  font-weight: 400;
+}
+
+body{
   background-color: #333
 }
