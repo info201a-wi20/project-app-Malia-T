@@ -97,7 +97,10 @@ q1 <- tabPanel(
   "Econ. Status & Grad Rates",
   titlePanel("Is there a relationship between economic 
              status and graduation rates?"),
-  p("The Economy and Rates of education change graph shows a positive relationship. It shows that as the GDP in USD increases, the relative graduation rates also increase. This means that as the economy of the country does well, the more the percentage of people are able to attend and complete their college degrees."),
+  p("The Economy and Rates of education change graph shows a 
+    positive relationship. It shows that as the GDP in USD increases, 
+    the relative graduation rates also increase. This means that as the economy of the country does well, 
+    the more the percentage of people are able to attend and complete their college degrees."),
   sidebarLayout(
     sidebarPanel(
       plot1_input_world <- selectInput(inputId = "year_select_plot1", label = "Year",
