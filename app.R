@@ -102,17 +102,27 @@ q4 <- tabPanel(
   "Worldwide GDP & Graduation Rate",
       #select year#
       #############
-      year_input <- selectInput(
-        inputId = "year_map",
-        label = "Year",
-        choices = c(2005,2010,2011,2012,2013,2014,2015,2016,2017),
-        selected = 2005),
+    
+    year_input <- selectInput(
+      inputId = "year_map",
+      label = "Year",
+      choices = c(2005,2010,2011,2012,2013,2014,2015,2016,2017),
+      selected = 2005),
     mainPanel(
       tabsetPanel(
-      tabPanel("Education", plotOutput(outputId = "edu_map_plot")),
-      tabPanel("Economy", plotOutput(outputId = "eco_map_plot")))
-    )
-)
+      tabPanel("Education", 
+               sidebarLayout(
+                 mainPanel(plotOutput(outputId = "edu_map_plot")),
+                 sidebarPanel(textOutput("mean_world_edu"), tableOutput("mean_edu_data")),
+                 position = "left"
+                 )),
+      tabPanel("Economy", 
+               sidebarLayout(
+                 mainPanel(plotOutput(outputId = "eco_map_plot")),
+                 sidebarPanel(textOutput("mean_world_eco"),tableOutput("mean_eco_data")),
+                 position = "left"
+               ))
+)))
 
 ui <- fluidPage (
   titlePanel("Study on Economic Status and Education Rates by Country"),
@@ -236,6 +246,34 @@ server <- function(input, output) {
       arrange(-mean_data$mean_gdp) %>%
       head(input$country_slider)
   
+  })
+  output$mean_edu_data <- renderTable({
+    df %>%
+      filter(Year == input$year_map) %>%
+      select(Country,Education) %>% 
+      arrange(-Education)
+    
+  })
+  output$mean_eco_data <- renderTable({
+    df %>%
+      filter(Year == input$year_map) %>%
+      select(Country,Economy) %>% 
+      arrange(-Economy)
+    
+  })
+  
+  output$mean_world_edu <- renderText({
+    mean_grad <- world_mean %>% 
+      filter(Year == input$year_map) %>% 
+      pull(mean_grad_rate)
+    paste("The world average graduation rate in",input$year_map,"is",round(mean_grad, digits = 2),"%.")
+  })
+  
+  output$mean_world_eco <- renderText({
+    mean_gdp <- world_mean %>% 
+      filter(Year == input$year_map) %>% 
+      pull(mean_gdp)
+    paste("The world average GDP (in US Dollars) in",input$year_map,"is $",round(mean_gdp, digits = 2),".")
   })
   
   
