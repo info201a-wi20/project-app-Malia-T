@@ -6,7 +6,6 @@ library(maps)
 library(DT)
 library(shinythemes)
 
-<<<<<<< HEAD
 source("project.R")
 #Data introduction
 
@@ -26,14 +25,14 @@ source("project.R")
 #The data was collected and distributed by the respective organizations.
 #**World Bank Data: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar**
 #**OECD Data: https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES**
-=======
+
 #install.packages("shinythemes")
 
 #source("project.R")
 #source("ui.R")
 #source("server.R")
 
->>>>>>> b56d20de0b310a4cbadfe44335ec7eea54cf7064
+
 
 
 home <- tabPanel(
@@ -135,7 +134,7 @@ q1 <- tabPanel(
                  p(plotOutput(outputId = "edu_trend")))
       ))
   )
-  )
+)
 
 #Question 2 Tab#
 ################
@@ -143,32 +142,32 @@ q2 <- tabPanel(
   "Education & Econ. Status Ranked",
   titlePanel("Education Rate Rankings Among Countries Worldwide and Their Economic Trend."),
   sidebarLayout(
-    p("What we can  gather from this visualization and quantitative data is that there seems to be no outright correlation between a country's economic status and a country's rates of people pursuing higher education. 
-     We saw a bit of this earlier with Luxembourg's perplexing case; the country had one of the lowest graduation rates but the largest GDP. 
-     When comparing average education rates and average GDP, there seems to be little to no relationship between the two. 
-     All in all, perhaps there is a better way of measuring economic success rather than simply said country's GDP, and it may also just be dependent on the country itself. 
-     In order to find a relationship between these two general areas, we could look at country income, infrastructure, and other measures of economic status to perform more analysis. 
-     Given the vast range of the data, it is possible that the slight correlation we saw in the last visualization is simply due to that same range, as well as outliers. 
+    p("What we can  gather from this visualization and quantitative data is that there seems to be no outright correlation between a country's economic status and a country's rates of people pursuing higher education.
+     We saw a bit of this earlier with Luxembourg's perplexing case; the country had one of the lowest graduation rates but the largest GDP.
+     When comparing average education rates and average GDP, there seems to be little to no relationship between the two.
+     All in all, perhaps there is a better way of measuring economic success rather than simply said country's GDP, and it may also just be dependent on the country itself.
+     In order to find a relationship between these two general areas, we could look at country income, infrastructure, and other measures of economic status to perform more analysis.
+     Given the vast range of the data, it is possible that the slight correlation we saw in the last visualization is simply due to that same range, as well as outliers.
      From this visualization, however, we can see that although we reordered our GDP in decreasing order, there is not as much of a distinct pattern in the respective graduation rates.
-     Within the context of the previous visualization, this plot highlights how much it matters to have variety. Upon first glance, there seems to be little to no relationship in this data, however the relationship is quite strong as we saw in the previous plot. 
+     Within the context of the previous visualization, this plot highlights how much it matters to have variety. Upon first glance, there seems to be little to no relationship in this data, however the relationship is quite strong as we saw in the previous plot.
      If we wanted to ask more questions, we could look at the data on a country-by-country basis over time so we can analyze those findings as well."),
-    
+
     sidebarPanel(
       sliderInput(inputId = "country_slider", label = "Select The Number Of Countries To Show",
                   min = 1, max = 40, value = 10) # Creates a slider input to select the number of countries to display on the bar graph
     ),
-    mainPanel(
-      h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"), # Heading level 3
-      p(
-        plotOutput(outputId = "eco_bar_plot") # Displays eco_bar_plot bar chart on main panel
-      ),
-      p(
-        plotOutput(outputId = "edu_bar_plot") # Displays edu_bar_plot bar chart on main panel
-      ),
-      p(
-        tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
-      )
-    ), position = "left"
+    # mainPanel(
+    #   h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"), # Heading level 3
+    #   p(
+    #     plotOutput(outputId = "eco_bar_plot") # Displays eco_bar_plot bar chart on main panel
+    #   ),
+    #   p(
+    #     plotOutput(outputId = "edu_bar_plot") # Displays edu_bar_plot bar chart on main panel
+    #   ),
+    #   p(
+    #     tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
+    #   )
+    # )
   )
 )
 
@@ -255,10 +254,7 @@ q4 <- tabPanel(
       sense for explaining why those countries' graduation rates are high as well.")
   )
 )
-<<<<<<< HEAD
 
-=======
->>>>>>> b56d20de0b310a4cbadfe44335ec7eea54cf7064
 ui <- fluidPage (
   theme = shinytheme("slate"),
   includeCSS("style.css"),
@@ -271,11 +267,7 @@ ui <- fluidPage (
     q4
   )
 )
-<<<<<<< HEAD
 
-
-=======
->>>>>>> b56d20de0b310a4cbadfe44335ec7eea54cf7064
 server <- function(input, output) {
   
   #edu map#
@@ -521,9 +513,9 @@ server <- function(input, output) {
   # Used for country output: gdp
   output$eco_trend <- renderPlot({
     plot1_input_country <- input$country_select_plot1
-    plot1_countries <- df %>% 
+    plot1_countries <- df %>%
       filter(Country == plot1_input_country)
-    
+
     q1_plot_eco <- ggplot(data = plot1_countries, aes(x = Year, y = Economy)) +
       geom_point(color = "red") +
       labs(title = paste("Economy for", plot1_input_country, "Over Time"), x = "Years", y = "GDP in USD") +
@@ -533,13 +525,13 @@ server <- function(input, output) {
       theme(axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"))
     return(q1_plot_eco)
   })
-  
+
   # Used for country output: edu
   output$edu_trend <- renderPlot({
     plot1_input_country <- input$country_select_plot1
-    plot1_countries <- df %>% 
+    plot1_countries <- df %>%
       filter(Country == plot1_input_country)
-    
+
     q1_plot_edu <- ggplot(data = plot1_countries, aes(x = Year, y = Education)) +
       geom_point(color = "red") +
       labs(title = paste("Education for", plot1_input_country, "Over Time"), x = "Years", y = "Education Rate") +
