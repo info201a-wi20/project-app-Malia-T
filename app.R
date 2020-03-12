@@ -33,30 +33,34 @@ source("server.R")
 
 
 home <- tabPanel(
-  "Home",
+  "Home",  
   h1("Study on Economic Status and Education Rates"),
-  p("Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
+  p("Through this project, we are attempting to draw relationships and comparisons between 
+   these two variables; economy rates of countries and higher rates of education in different countries.
    Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:",
    
   tags$ul(
     tags$li("Is there a relationship between economic status of a country and their graduation rates?",
        tags$ul(
-         tags$li("This question is aimed to help us finally analyze and answer if there is a relationship between the two factors; 
-            if there is a correlation between the two, and if so, the type of correlation (positive, negative).")
+         tags$li("This question is aimed to help us finally analyze and answer if there is a relationship 
+         between the two factors; if there is a correlation between the two, and if so, the type of 
+                 correlation (positive, negative).")
        )),
-    tags$li("   Rank the education rate from highest to lowest among countries worldwide, and also show their economic trend. How do these compare?", 
+    tags$li("   Rank the education rate from highest to lowest among countries worldwide, and also show their 
+            economic trend. How do these compare?", 
        tags$ul(
-         tags$li("This question will help us understand which country has the highest rates of highest education and which has the lowest rates."), 
+         tags$li("This question will help us understand which country has the highest rates of highest education 
+                 and which has the lowest rates.")
        )),
     tags$li("How does the correlation of US higher education rates vs. economy look like with respect to US events?",
        tags$ul(
          tags$li("This question will help us understand how these values compare to how well the country is faring.")
        )),
     
-    tags$li("Which regions tend to have a higher GDP? Higher graduation rates? What could these results entail?", 
+    tags$li("Which regions tend to have a higher GDP? Higher graduation rates? What could these results entail?",
        tags$ul(
-         tags$li("This will help us understand if there is a certain region where more affluent individuals use overseas 
-            bank accounts to store money, for example. These findings could prompt many more questions."))
+         tags$li("This will help us understand if there is a certain region where more affluent individuals use overseas bank accounts to store money, for example. These findings could prompt many more questions.")
+         )
        )
     )
   ), 
