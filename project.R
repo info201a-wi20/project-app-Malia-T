@@ -62,12 +62,10 @@ eco$Year <- as.integer(eco$Year)
 #merge/combine the two data sets
 ##after filtering, we get data for most countries from 2005 to 2017
 df <- inner_join(edu, eco, by = c("Year","Country_code"))
-
-
+colnames(df)<- c("iso3c", "Country","Year","Education","Economy")
 ####################
 ###Summarize Data###
 ####################
-
 
 
 #extract all the countries (name only appear once)
@@ -101,13 +99,12 @@ events <- c("Patient Protection and Affordable Care Act, Dodd-Frank Wall Street 
             "Trump Tax Act (Tax Cuts and Jobs Act)")
 #only use data from USA
 usa <- df %>% 
-  filter(Country_code == "USA")
+  filter(iso3c == "USA")
 #removed the outlier of data from 2005
 usa <- usa[-c(1),]
 #select only the year, grad_Rate, gdp and events
 usa <- mutate(usa, Events = events) %>% 
-  select(Year, grad_rate, GDP, Events)
-
+  select(Year, Education, Economy, Events)
 
 #Question 4
 #get world map data
