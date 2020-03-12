@@ -32,7 +32,7 @@ source("project.R")
 
 home <- tabPanel(
   "Home",
-  h1("Study on Economic Status and Education Rates by Country"),
+  h1("Study on Economic Status and Education Rates"),
   p("Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
    Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:",
    
