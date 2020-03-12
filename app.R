@@ -57,13 +57,23 @@ q1 <- tabPanel(
              status and graduation rates?"),
   sidebarLayout(
     sidebarPanel(
-      sliderInput(inputId = "year_slider", label = "Pick a Year",
-                  min = 2005, max = 2017, value = 2005)
+      plot1_input_world <- selectInput(inputId = "year_select_plot1", label = "Year",
+                                 choices = c(2005, 2010, 2011, 2012, 2013, 2014, 
+                                             2015, 2016, 2017), 
+                                 selected = 2005),
+      
+      plot1_input_country <- selectInput(inputId = "country_select_plot1", label = "Country",
+                                           choices = mean_data$Country, 
+                                           selected = "Argentina")
+
     ),
     mainPanel(
-      h3("Relationship Between Economic Status and Graduation Rates"),
-      p(
-        plotOutput(outputId = "plot_1_output")
+      tabsetPanel(
+        tabPanel("Worldwide", plotOutput(outputId = "plot_1_output_worldwide")),
+        tabPanel("By Country", 
+                 p(plotOutput(outputId = "eco_trend", height = 500, width = 700)),
+                 p(plotOutput(outputId = "edu_trend", height = 500, width = 700)))
+        
       )
     )
   )
@@ -91,7 +101,6 @@ q2 <- tabPanel(
       
     ),
   )
-  
 )
 
 q3 <- tabPanel(
@@ -185,16 +194,24 @@ server <- function(input, output) {
 
   #eco & edu relationship trend#
   ##############################   
-  output$plot_1_output <- renderPlot({
-    ggplot(mean_data,aes(x = mean_gdp,y = mean_grad_rate ))+
+  output$plot_1_output_worldwide <- renderPlot({
+    # used for plotting worldwide over years
+    plot1_input_world <- input$year_select_plot1
+    plot_1_year_input <- filter(df, Year == as.integer(plot1_input_world))
+    
+    plot1_input_df <- left_join(plot_1_year_input, mean_data, by = "Country") 
+    
+    q1_plot_world <- ggplot(data = plot_1_input_df, aes(x = mean_data$mean_gdp, y = mean_data$mean_grad_rate ))+
       
       geom_point(color = "red")+
       labs(title = "Economy and Rates of Education Change", x = "GDP in USD", y = "Graduation Rate %")+
       geom_smooth(method=lm, se = FALSE)+
       theme_minimal()+
       theme(axis.line = element_line(size = 0.5, linetype = "solid",colour = "black"))
+    return(q1_plot_world)
   })
   
+
   #eco bar chart#
   ############### 
   output$eco_bar_plot <- renderPlot({
@@ -217,26 +234,7 @@ server <- function(input, output) {
     
   })
   
-  #edu bar chart#
-  ###############
-  output$edu_bar_plot <- renderPlot({
-    mean_data %>%
-      arrange(-mean_data$mean_gdp) %>%
-      head(input$country_slider) %>%
-    ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_grad_rate))+
-      geom_col(fill = "pink")+
-      labs( x = "Country", 
-            y = "Graduation Rate")+
-      theme_minimal()+
-      theme(axis.text.x = element_text(angle = 90, size = 12,hjust = 1, vjust = 0.25),
-            axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 18)),
-            legend.position = "none",
-            axis.title = element_text(size = 12),
-            axis.line = element_line(size = 0.5, linetype = "solid",
-                                     colour = "black")
-      )    
-    
-  })
+  
   
   
   #Mean Data Table for Question 2#
@@ -275,7 +273,38 @@ server <- function(input, output) {
       pull(mean_gdp)
     paste("The world average GDP (in US Dollars) in",input$year_map,"is $",round(mean_gdp, digits = 2),".")
   })
+ 
+  # Used for country output: gdp
+  output$eco_trend <- renderPlot({
+    plot1_input_country <- input$country_select_plot1
+    plot1_countries <- df %>% 
+      filter(Country == plot1_input_country)
+    
+    q1_plot_eco <- ggplot(data = plot1_countries, aes(x = Year, y = Economy)) +
+      geom_point(color = "red") +
+      labs(title = paste("Economy for", plot1_input_country, "Over Time"), x = "Years", y = "GDP in USD") +
+      xlim(2005, 2017) +
+      geom_smooth(method = lm, se = FALSE) +
+      theme_minimal() +
+      theme(axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"))
+    return(q1_plot_eco)
+  })
   
+  # Used for country output: edu
+  output$edu_trend <- renderPlot({
+    plot1_input_country <- input$country_select_plot1
+    plot1_countries <- df %>% 
+      filter(Country == plot1_input_country)
+    
+    q1_plot_edu <- ggplot(data = plot1_countries, aes(x = Year, y = Education)) +
+      geom_point(color = "red") +
+      labs(title = paste("Education for", plot1_input_country, "Over Time"), x = "Years", y = "Education Rate") +
+      xlim(2005, 2017) +
+      geom_smooth(method = lm, se = FALSE) +
+      theme_minimal() +
+      theme(axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"))
+    return(q1_plot_edu)
+  })
   
 }
 
