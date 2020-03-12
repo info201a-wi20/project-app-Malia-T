@@ -114,8 +114,6 @@ q3 <- tabPanel(
   titlePanel("Comparing Higher Education Rates and Economy based on US Events"),
   sidebarLayout(
     sidebarPanel(
-      # sliderInput(inputId = "year_slider", label = "Select Range Of Years to Filter",
-      #             min = 2010, max = 2017, value = c(2010,2017)) # Creates a slider input to select the range of years to show
       selectInput(inputId = "events_select", label = "Select Certain United States Event to Filter",
                   choices = list("All Events",
                                  "Patient Protection and Affordable Care Act, Dodd-Frank Wall Street Reform and Consumer Protection Act",
@@ -140,9 +138,9 @@ q3 <- tabPanel(
           plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
         ),
         tabPanel(
-          "GDP & Graduation Rates"#,
-          # plotOutput(outputId = "event_gdp"), # Displays event_gdp line chart on main panel
-          # plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
+          "GDP & Graduation Rates",
+          plotOutput(outputId = "event_gdp"), # Displays event_gdp line chart on main panel
+          plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
         )
       ),
       p(
