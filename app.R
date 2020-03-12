@@ -116,17 +116,17 @@ q3 <- tabPanel(
   titlePanel("Comparing Higher Education Rates and Economy based on US Events"),
   sidebarLayout(
     sidebarPanel(
-      selectInput(inputId = "events_select", label = "Select Certain United States Event to Filter",
-                  choices = list("All Events",
-                                 "Patient Protection and Affordable Care Act, Dodd-Frank Wall Street Reform and Consumer Protection Act",
-                                 "Japan Tohoku earthquake and tsunami", 
-                                 "U.S. Fiscal cliff",
-                                 "Budget sequestration",
-                                 "Quantitative easing (QE) ends (aka large-scale asset purchases)", 
-                                 "Trans-Pacific Partnership, Joint Comprehensive Plan of Action (aka Iran nuclear deal)", 
-                                 "Presidential race",
-                                 "Trump Tax Act (Tax Cuts and Jobs Act)"), 
-                  selected = "All Events")
+      radioButtons(inputId = "events_select", label = "Select Certain United States Event to Filter",
+                   choices = list("All Events",
+                                  "Patient Protection and Affordable Care Act, Dodd-Frank Wall Street Reform and Consumer Protection Act",
+                                  "Japan Tohoku earthquake and tsunami", 
+                                  "U.S. Fiscal cliff",
+                                  "Budget sequestration",
+                                  "Quantitative easing (QE) ends (aka large-scale asset purchases)", 
+                                  "Trans-Pacific Partnership, Joint Comprehensive Plan of Action (aka Iran nuclear deal)", 
+                                  "Presidential race",
+                                  "Trump Tax Act (Tax Cuts and Jobs Act)"), 
+                   selected = "All Events")
     ),
     mainPanel(
       h3("How does the correlation of US higher education rates vs. economy look with respect to US events?"), # Heading level 3
