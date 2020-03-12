@@ -130,8 +130,8 @@ q4 <- tabPanel(
                  mainPanel(plotOutput(outputId = "eco_map_plot")),
                  sidebarPanel(textOutput("mean_world_eco"),tableOutput("mean_eco_data")),
                  position = "left"
-               ))
-)))
+               ),
+))))
 
 ui <- fluidPage (
   tags$head(
@@ -172,7 +172,6 @@ server <- function(input, output) {
       guides(fill = guide_legend(title = "Graduation Rate"))
     return(q4_edu_map)
   })
-  
   #eco map#
   ######### 
   output$eco_map_plot <- renderPlot({
