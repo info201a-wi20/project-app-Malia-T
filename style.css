@@ -1,10 +1,17 @@
 
 p{
-  font-family: 'Comic Sans';
-  color: black;
+  font-family: 'Helvetica';
+  color: beige;
   font-weight: 400;
+  font-size: 1.4;
 }
 
 body{
-  background-color: #333
+  background-color: #333;
+}
+
+nav {
+  opacity: 50;
+  background-color: #607;
+
 }
