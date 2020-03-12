@@ -75,8 +75,9 @@ q1 <- tabPanel(
       tabsetPanel(
         tabPanel("Worldwide", plotOutput(outputId = "plot_1_output_worldwide")),
         tabPanel("By Country", 
-                 p(plotOutput(outputId = "eco_trend", height = 500, width = 700)),
-                 p(plotOutput(outputId = "edu_trend", height = 500, width = 700)))
+                 p(plotOutput(outputId = "eco_trend")),
+                 p(plotOutput(outputId = "edu_trend"))),
+        tabPanel("Average", plotOutput(outputId = "plot_1_mean")),
         
       )
     )
@@ -420,6 +421,16 @@ server <- function(input, output) {
     paste("The world average GDP (in US Dollars) in",input$year_map,"is $",round(mean_gdp, digits = 2),".")
   })
   
+  output$plot_1_mean <- renderPlot({
+    mean_plot <- ggplot(mean_data,aes(x = mean_gdp,y = mean_grad_rate ))+
+      geom_point(color = "red")+
+      labs(title = "Economy and Rates of Education Change", x = "GDP in USD", y = "Graduation Rate %")+
+      geom_smooth(method=lm, se = FALSE)+
+      theme_minimal()+
+      theme(axis.line = element_line(size = 0.5, linetype = "solid",colour = "black"))
+    
+    return(mean_plot)
+  })
   
   # Used for country output: gdp
   output$eco_trend <- renderPlot({
