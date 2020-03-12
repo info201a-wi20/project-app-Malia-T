@@ -68,8 +68,12 @@ df <- inner_join(edu, eco, by = c("Year","Country_code"))
 ###Summarize Data###
 ####################
 
+
+
 #extract all the countries (name only appear once)
 country_names <- distinct(edu, Country_code, Country)
+
+
 
 #mean dataframe that has the mean graduation rate and mean gdp rate for
 #each countries.
@@ -78,12 +82,42 @@ mean_data <- group_by(df,Country_code) %>%
   summarise(mean_grad_rate = mean(grad_rate), mean_gdp = mean(GDP)) %>%  
   left_join(country_names, by = "Country_code")
 
+
+
 #the world mean is the mean grad rate and mean gdp rate of all countries from 2005 to 2017
 world_mean <- group_by(df, Year) %>% 
   summarise(mean_grad_rate = mean(grad_rate),mean_gdp = mean(GDP)) 
 
+<<<<<<< HEAD
 q1_df <- df %>% 
   
+=======
+
+
+#Question 3
+events <- c("Patient Protection and Affordable Care Act, Dodd-Frank Wall Street Reform and Consumer Protection Act",
+            "Japan Tohoku earthquake and tsunami", 
+            "U.S. Fiscal cliff",
+            "Budget sequestration",
+            "Quantitative easing (QE) ends (aka large-scale asset purchases)", 
+            "Trans-Pacific Partnership, Joint Comprehensive Plan of Action (aka Iran nuclear deal)", 
+            "Presidential race",
+            "Trump Tax Act (Tax Cuts and Jobs Act)")
+#only use data from USA
+usa <- df %>% 
+  filter(Country_code == "USA")
+#removed the outlier of data from 2005
+usa <- usa[-c(1),]
+#select only the year, grad_Rate, gdp and events
+usa <- mutate(usa, Events = events) %>% 
+  select(Year, grad_rate, GDP, Events)
+
+
+
+#Question 4
+#- Which regions tend to have a higher GDP? Higher graduation rates? 
+#  What could these results entail?
+>>>>>>> b3c9bc8522ddbfa436fc3cd82806ab11147dfec4
 
 #Question 4
 #get world map data

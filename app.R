@@ -138,9 +138,9 @@ q3 <- tabPanel(
           plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
         ),
         tabPanel(
-          "GDP & Graduation Rates",
-          plotOutput(outputId = "event_gdp"), # Displays event_gdp line chart on main panel
-          plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
+          "GDP & Graduation Rates"#,
+          # plotOutput(outputId = "event_gdp"), # Displays event_gdp line chart on main panel
+          # plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
         )
       ),
 #      p(
