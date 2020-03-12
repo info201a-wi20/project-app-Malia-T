@@ -1,0 +1,19 @@
+
+p{
+  font-family: 'Helvetica';
+  color: beige;
+  font-weight: 400;
+  font-size: 1.4;
+}
+
+body{
+  background-color: #333;
+}
+
+.navbar-default {
+  background-color: #b1b1b3;
+}
+
+.navbar-default:hover {
+  background-color: #aaaaaa
+}
