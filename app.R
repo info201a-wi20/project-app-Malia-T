@@ -11,13 +11,13 @@ source("project.R")
 
 ###Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:
 #Is there a relationship between economic status of a country and their graduation rates?
- #This question is aimed to help us finally analyze and answer if there is a relationship between the two factors; if there is a correlation between the two, and if so, the type of correlation (positive, negative).
+#This question is aimed to help us finally analyze and answer if there is a relationship between the two factors; if there is a correlation between the two, and if so, the type of correlation (positive, negative).
 #Rank the education rate from highest to lowest among countries worldwide, and also show their economic trend.
- #This question will help us understand which country has the highest rates of highest education and which has the lowest rates.
+#This question will help us understand which country has the highest rates of highest education and which has the lowest rates.
 #How does the correlation of US higher education rates vs. economy look like with respect to US events?
- #This question will help us understand how these values compare to how well the country is faring.
+#This question will help us understand how these values compare to how well the country is faring.
 #Which regions tend to have a higher GDP? Higher graduation rates? What could these results entail?
- #This will help us understand if there is a certain region where more affluent individuals use overseas bank accounts to store money, for example. These findings could prompt many more questions.
+#This will help us understand if there is a certain region where more affluent individuals use overseas bank accounts to store money, for example. These findings could prompt many more questions.
 #We chose this topic, as we believe that education is a very essential tool to a person's overall success in life irrespective of age. Just like every human being requires oxygen to survive, education too is very essential to survive in this world. Education provides people the knowledge and skills they need in order to survive. By analyzing these questions relating to education and how the economy rates of countries affect education - we hope to be able to better understand which countries are doing well in terms of economy and higher rates of education, and which countries are not doing well in these aspects. By understanding these aspects, we as students can work on spreading awareness regarding countries that are low on higher education rates and work in small ways that impact those countries and improve the overall higher educational rates. Thus, we believe that the topic chosen is important.
 
 #Data Description
@@ -25,12 +25,12 @@ source("project.R")
 #The data was collected and distributed by the respective organizations.
 #**World Bank Data: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar**
 #**OECD Data: https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES**
-  
+
 
 home <- tabPanel(
-   "Home",
-   titlePanel("Introduction"),
-   p("Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
+  "Home",
+  titlePanel("Introduction"),
+  p("Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
    Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:
    Is there a relationship between economic status of a country and their graduation rates?
    This question is aimed to help us finally analyze and answer if there is a relationship between the two factors; if there is a correlation between the two, and if so, the type of correlation (positive, negative).
@@ -40,17 +40,17 @@ home <- tabPanel(
    This question will help us understand how these values compare to how well the country is faring.
    Which regions tend to have a higher GDP? Higher graduation rates? What could these results entail?
    This will help us understand if there is a certain region where more affluent individuals use overseas bank accounts to store money, for example. These findings could prompt many more questions."),
-   
-   p("We chose this topic, as we believe that education is a very essential tool to a person's overall success in life irrespective of age. Just like every human being requires oxygen to survive, 
+  
+  p("We chose this topic, as we believe that education is a very essential tool to a person's overall success in life irrespective of age. Just like every human being requires oxygen to survive, 
    education too is very essential to survive in this world. Education provides people the knowledge and skills they need in order to survive. By analyzing these questions relating to education and how the economy rates of countries affect education - we hope to be able to better understand which countries are doing well in terms of economy and higher rates of education, and which countries are not doing well in these aspects. By understanding these aspects, we as students can work on spreading awareness regarding countries that are low on higher education rates and work in small ways that impact those countries and improve the overall higher educational rates. Thus, we believe that the topic chosen is important. Data Description
    Our data is from the World Bank and the Organisation for Economic Co-Operation and Development. Our World Bank data shows countries' GDP per capita and the OECD data shows education rates for different countries. OECD has columns of education rates for upper-secondary education, post-secondary education, short-cycle tertiary education, as well as college degrees such as a bachelor's or equivalent. We are focusing on people who obtain bachelor's degrees the first time they enter university.
    The data was collected and distributed by the respective organizations."),
   
-   p(strong(a("World Bank Data", href = "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar"))),
+  p(strong(a("World Bank Data", href = "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar"))),
   
-   p(strong(a("OECD Data", href = "https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES"))),
+  p(strong(a("OECD Data", href = "https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES"))),
   
-   p(strong(a("Project Report", href = "https://info201a-wi20.github.io/project-report-Malia-T/")))
+  p(strong(a("Project Report", href = "https://info201a-wi20.github.io/project-report-Malia-T/")))
 )
 
 #Question 1 Tab#
@@ -62,14 +62,14 @@ q1 <- tabPanel(
   sidebarLayout(
     sidebarPanel(
       plot1_input_world <- selectInput(inputId = "year_select_plot1", label = "Year",
-                                 choices = c(2005, 2010, 2011, 2012, 2013, 2014, 
-                                             2015, 2016, 2017), 
-                                 selected = 2005),
+                                       choices = c(2005, 2010, 2011, 2012, 2013, 2014, 
+                                                   2015, 2016, 2017), 
+                                       selected = 2005),
       
       plot1_input_country <- selectInput(inputId = "country_select_plot1", label = "Country",
-                                           choices = mean_data$Country, 
-                                           selected = "Argentina")
-
+                                         choices = mean_data$Country, 
+                                         selected = "Argentina")
+      
     ),
     mainPanel(
       tabsetPanel(
@@ -81,7 +81,7 @@ q1 <- tabPanel(
       )
     )
   )
-  )
+)
 
 #Question 2 Tab#
 ################
@@ -145,9 +145,9 @@ q3 <- tabPanel(
           p(plotOutput(outputId = "event_grad_tab3")) # Displays event_grad line chart on main panel
         )
       ),
-     p(
-       tableOutput("usa") # Displays usa data frame table on side bar panel
-     )
+      p(
+        tableOutput("usa") # Displays usa data frame table on side bar panel
+      )
     )
   )
 )
@@ -156,29 +156,29 @@ q3 <- tabPanel(
 ################
 q4 <- tabPanel(
   "Worldwide GDP & Graduation Rate",
-      #select year#
-      #############
-    
-    year_input <- selectInput(
-      inputId = "year_map",
-      label = "Year",
-      choices = c(2005,2010,2011,2012,2013,2014,2015,2016,2017),
-      selected = 2005),
-    mainPanel(
-      tabsetPanel(
+  #select year#
+  #############
+  
+  year_input <- selectInput(
+    inputId = "year_map",
+    label = "Year",
+    choices = c(2005,2010,2011,2012,2013,2014,2015,2016,2017),
+    selected = 2005),
+  mainPanel(
+    tabsetPanel(
       tabPanel("Education", 
                sidebarLayout(
                  mainPanel(plotOutput(outputId = "edu_map_plot")),
                  sidebarPanel(textOutput("mean_world_edu"), tableOutput("mean_edu_data")),
                  position = "left"
-                 )),
+               )),
       tabPanel("Economy", 
                sidebarLayout(
                  mainPanel(plotOutput(outputId = "eco_map_plot")),
                  sidebarPanel(textOutput("mean_world_eco"),tableOutput("mean_eco_data")),
                  position = "left"
                ),
-))))
+      ))))
 
 ui <- fluidPage (
   includeCSS("style.css"),
@@ -195,7 +195,7 @@ ui <- fluidPage (
 
 
 server <- function(input, output) {
-
+  
   #edu map#
   #########
   
@@ -238,7 +238,7 @@ server <- function(input, output) {
     return(q4_eco_map)
   })
   
-
+  
   #eco & edu relationship trend#
   ##############################   
   output$plot_1_output_worldwide <- renderPlot({
@@ -256,14 +256,14 @@ server <- function(input, output) {
     return(q1_plot_world)
   })
   
-
+  
   #eco bar chart Question 2#
   ########################## 
   output$eco_bar_plot <- renderPlot({
     mean_data %>%
       arrange(-mean_data$mean_gdp) %>%
       head(input$country_slider) %>%
-    ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_gdp))+
+      ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_gdp))+
       geom_col(fill = "orange")+
       labs(y = "GDP in US Dollars",
            title = "Ranking of Average Education Rate and GDP Between Countries"
@@ -285,7 +285,7 @@ server <- function(input, output) {
     mean_data %>%
       arrange(-mean_data$mean_gdp) %>%
       head(input$country_slider) %>%
-    ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_grad_rate))+
+      ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_grad_rate))+
       geom_col(fill = "pink")+
       labs( x = "Country", 
             y = "Graduation Rate")+
@@ -296,7 +296,7 @@ server <- function(input, output) {
             axis.title = element_text(size = 12),
             axis.line = element_line(size = 0.5, linetype = "solid",
                                      colour = "black")
-      
+            
       )    
     
   })
@@ -308,7 +308,7 @@ server <- function(input, output) {
     mean_data %>%
       arrange(-mean_data$mean_gdp) %>%
       head(input$country_slider)
-  
+    
   })
   
   #event gdp chart for Question 3#
@@ -456,4 +456,3 @@ server <- function(input, output) {
 }
 
 shinyApp(ui = ui, server = server)
-
