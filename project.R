@@ -88,10 +88,6 @@ mean_data <- group_by(df,Country_code) %>%
 world_mean <- group_by(df, Year) %>% 
   summarise(mean_grad_rate = mean(grad_rate),mean_gdp = mean(GDP)) 
 
-<<<<<<< HEAD
-q1_df <- df %>% 
-  
-=======
 
 
 #Question 3
@@ -112,12 +108,6 @@ usa <- usa[-c(1),]
 usa <- mutate(usa, Events = events) %>% 
   select(Year, grad_rate, GDP, Events)
 
-
-
-#Question 4
-#- Which regions tend to have a higher GDP? Higher graduation rates? 
-#  What could these results entail?
->>>>>>> b3c9bc8522ddbfa436fc3cd82806ab11147dfec4
 
 #Question 4
 #get world map data
