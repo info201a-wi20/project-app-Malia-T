@@ -5,8 +5,7 @@ library(ggplot2)
 library(maps)
 library(DT)
 library(shinythemes)
-
-#install.packages("shinythemes")
+library(rsconnect)
 
 source("project.R")
 
@@ -208,7 +207,8 @@ q3 <- tabPanel(
       ),
       p(tableOutput("usa")) # Displays usa data frame table on side bar panel
     )
-  ))
+  )
+)
 
 
 #Question 4 Tab#
