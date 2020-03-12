@@ -109,11 +109,7 @@ usa <- mutate(usa, Events = events) %>%
   select(Year, grad_rate, GDP, Events)
 
 
-
 #Question 4
-#- Which regions tend to have a higher GDP? Higher graduation rates? 
-#  What could these results entail?
-
 #get world map data
 world_map <- map_data("world")
 iso <- iso.alpha(world_map$region, n = 3)
