@@ -37,20 +37,24 @@ q1 <- tabPanel(
              status and graduation rates?"),
   sidebarLayout(
     sidebarPanel(
-      plot1_input <- selectInput(inputId = "year_select_plot1", label = "Pick a Year",
+      plot1_input_world <- selectInput(inputId = "year_select_plot1", label = "Year",
                                  choices = c(2005, 2010, 2011, 2012, 2013, 2014, 
                                              2015, 2016, 2017), 
-                                 selected = 2005)
+                                 selected = 2005),
+      plot1_input_country <- selectInput(inputId = "country_select_plot1", label = "Country",
+                                         choices = mean_data$Country, 
+                                         selected = "Argentina")
+      
     ),
     mainPanel(
       tabsetPanel(
         tabPanel("Worldwide", plotOutput(outputId = "plot_1_output_worldwide")),
         tabPanel("By Country", plotOutput(outputId = "plot_1_output_country"))
-        )
-        
       )
+        
     )
   )
+)
 
 
 q2 <- tabPanel(
@@ -135,22 +139,34 @@ server <- function(input, output) {
     return(q4_eco_map)
   })
   
-  output$plot_1_output <- renderPlot({
-    # used for plotting years
-    plot_1_input <- input$year_select_plot1
-    plot_1_year_df <- df %>% 
-      filter(Year == as.integer(year_slider))
-      
+  output$plot_1_output_worldwide <- renderPlot({
+    # used for plotting worldwide over years
+    plot1_input_world <- input$year_select_plot1
+    plot_1_year_input <- filter(df, Year == as.integer(plot1_input_world))
     
-    q1_plot <- ggplot(plot_1_input_df, aes(x = mean_gdp, y = mean_grad_rate ))+
+    plot1_input_df <- left_join(plot_1_year_input, mean_data, by = "Country") 
+    
+    q1_plot_world <- ggplot(data = plot_1_input_df, aes(x = mean_data$mean_gdp, y = mean_data$mean_grad_rate ))+
       
       geom_point(color = "red")+
       labs(title = "Economy and Rates of Education Change", x = "GDP in USD", y = "Graduation Rate %")+
       geom_smooth(method=lm, se = FALSE)+
       theme_minimal()+
       theme(axis.line = element_line(size = 0.5, linetype = "solid",colour = "black"))
+    return(q1_plot_world)
+  })
+  
+  # Used for country output
+  output$plot_1_output_country <- renderPlot({
+    plot1_input_country <- input$country_select_plot1
+    plot1_countries <- df %>% 
+      filter(Country = plot1_input_country)
+    
+    q1_plot_countries <- ggplot(data = plot1_countries, aes(x = Year, y = ))
   })
 }
+
+View(plot_1_year_input)
 
 shinyApp(ui = ui, server = server)
 
