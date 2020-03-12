@@ -32,7 +32,7 @@ source("project.R")
 
 home <- tabPanel(
   "Home",
-  titlePanel("Introduction"),
+  h1("Study on Economic Status and Education Rates by Country"),
   p("Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
    Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:
    Is there a relationship between economic status of a country and their graduation rates?
@@ -185,9 +185,9 @@ q4 <- tabPanel(
       ))))
 
 ui <- fluidPage (
-  #includeCSS("style.css"),
   theme = shinytheme("slate"),
-  titlePanel("Study on Economic Status and Education Rates by Country"),
+  includeCSS("style.css"),
+  #titlePanel("Study on Economic Status and Education Rates by Country"),
   navbarPage(
     title = "Info 201, AH Team 1",
     home,
