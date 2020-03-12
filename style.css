@@ -13,6 +13,7 @@ h1{
 h3{
   color: beige;
 }
+
 body{
   background-color: #333;
 }
@@ -23,4 +24,8 @@ body{
 
 .navbar-default:hover {
   background-color: #aaaaaa
+}
+
+.titlePanel {
+  color:white;
 }
