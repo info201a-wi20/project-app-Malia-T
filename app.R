@@ -140,14 +140,14 @@ q3 <- tabPanel(
           plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
         ),
         tabPanel(
-          "GDP & Graduation Rates"#,
-          # plotOutput(outputId = "event_gdp"), # Displays event_gdp line chart on main panel
-          # plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
+          "GDP & Graduation Rates",
+          p(plotOutput(outputId = "event_gdp_tab3")), # Displays event_gdp line chart on main panel
+          p(plotOutput(outputId = "event_grad_tab3")) # Displays event_grad line chart on main panel
         )
       ),
-#      p(
-#        tableOutput("usa") # Displays usa data frame table on side bar panel
-#      )
+     p(
+       tableOutput("usa") # Displays usa data frame table on side bar panel
+     )
     )
   )
 )
@@ -257,8 +257,8 @@ server <- function(input, output) {
   })
   
 
-  #eco bar chart#
-  ############### 
+  #eco bar chart Question 2#
+  ########################## 
   output$eco_bar_plot <- renderPlot({
     mean_data %>%
       arrange(-mean_data$mean_gdp) %>%
@@ -279,8 +279,8 @@ server <- function(input, output) {
     
   })
   
-  #edu bar chart#
-  ###############   
+  #edu bar chart Question 2#
+  ##########################   
   output$edu_bar_plot <- renderPlot({
     mean_data %>%
       arrange(-mean_data$mean_gdp) %>%
@@ -330,9 +330,43 @@ server <- function(input, output) {
       )
   })
   
+  output$event_gdp_tab3 <- renderPlot({
+    usa %>%
+      filter(Events == input$events_select | (input$events_select == "All Events")) %>%
+      ggplot(aes(x = Year,y = GDP)) +
+      geom_point(size = 3)+
+      geom_line()+
+      labs(y = "GDP in US Dollars")+
+      scale_x_continuous(breaks=seq(2010, 2017, 1))+
+      theme_minimal()+
+      theme(axis.title = element_text(size = 12),
+            axis.text.x = element_text( size = 12),
+            axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 18)),
+            axis.line = element_line(size = 0.5, linetype = "solid",
+                                     colour = "black")
+      )
+  })
+  
   #event grad chart for Question 3#
   #################################
   output$event_grad <- renderPlot({
+    usa %>%
+      filter(Events == input$events_select | (input$events_select == "All Events")) %>%
+      ggplot(aes(x = Year,y = grad_rate)) +
+      geom_point(size = 3)+
+      geom_line()+
+      labs(y = "Graduation Rate %")+
+      scale_x_continuous(breaks=seq(2010, 2017, 1))+
+      theme_minimal()+
+      theme(axis.title = element_text(size = 12),
+            axis.text.x = element_text( size = 12),
+            axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 18)),
+            axis.line = element_line(size = 0.5, linetype = "solid",
+                                     colour = "black")
+      )
+  })
+  
+  output$event_grad_tab3 <- renderPlot({
     usa %>%
       filter(Events == input$events_select | (input$events_select == "All Events")) %>%
       ggplot(aes(x = Year,y = grad_rate)) +
