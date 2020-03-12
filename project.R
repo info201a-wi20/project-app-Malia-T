@@ -38,8 +38,8 @@ edu <- filter(edu, substring(edu$Education.level.and.programe.orientation.,0,8) 
 edu <- filter(edu, substring(edu$Age,0,5) == "Total",)
 edu <- filter(edu, SEX == "T",) %>% 
   filter(!is.na(Value)) %>% 
-  select(Ã¯..COUNTRY, Country, Year, Value )
-  
+  select(ï..COUNTRY, Country, Year, Value )
+
 #change column name
 new_col_names <- c("Country_code", "Country","Year", "grad_rate")
 colnames(edu) <- new_col_names
