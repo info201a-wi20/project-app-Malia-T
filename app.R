@@ -44,14 +44,14 @@ q1 <- tabPanel(
     ),
     mainPanel(
       tabsetPanel(
-        h3("Relationship Between Economic Status and Graduation Rates"),
-        p(
-        plotOutput(outputId = "plot_1_output")
+        tabPanel("Worldwide", plotOutput(outputId = "plot_1_output_worldwide")),
+        tabPanel("By Country", plotOutput(outputId = "plot_1_output_country"))
         )
+        
       )
     )
   )
-)
+
 
 q2 <- tabPanel(
   "Education & Econ. Status Ranked"
