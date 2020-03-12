@@ -169,7 +169,7 @@ q4 <- tabPanel(
       tabPanel("Education", 
                sidebarLayout(
                  mainPanel(plotOutput(outputId = "edu_map_plot")),
-                 sidebarPanel(textOutput("mean_world_edu"), tableOutput("mean_edu_data")),
+                 sidebarPanel(textOutput("mean_world_edu"),tableOutput("mean_edu_data")),
                  position = "left"
                )),
       tabPanel("Economy", 
@@ -316,7 +316,7 @@ server <- function(input, output) {
   output$event_gdp <- renderPlot({
     usa %>%
       filter(Events == input$events_select | (input$events_select == "All Events")) %>%
-      ggplot(aes(x = Year,y = GDP)) +
+      ggplot(aes(x = Year,y = Economy)) +
       geom_point(size = 3)+
       geom_line()+
       labs(y = "GDP in US Dollars")+
@@ -333,7 +333,7 @@ server <- function(input, output) {
   output$event_gdp_tab3 <- renderPlot({
     usa %>%
       filter(Events == input$events_select | (input$events_select == "All Events")) %>%
-      ggplot(aes(x = Year,y = GDP)) +
+      ggplot(aes(x = Year,y = Economy)) +
       geom_point(size = 3)+
       geom_line()+
       labs(y = "GDP in US Dollars")+
@@ -352,7 +352,7 @@ server <- function(input, output) {
   output$event_grad <- renderPlot({
     usa %>%
       filter(Events == input$events_select | (input$events_select == "All Events")) %>%
-      ggplot(aes(x = Year,y = grad_rate)) +
+      ggplot(aes(x = Year,y = Education)) +
       geom_point(size = 3)+
       geom_line()+
       labs(y = "Graduation Rate %")+
@@ -369,7 +369,7 @@ server <- function(input, output) {
   output$event_grad_tab3 <- renderPlot({
     usa %>%
       filter(Events == input$events_select | (input$events_select == "All Events")) %>%
-      ggplot(aes(x = Year,y = grad_rate)) +
+      ggplot(aes(x = Year,y = Education)) +
       geom_point(size = 3)+
       geom_line()+
       labs(y = "Graduation Rate %")+
@@ -390,7 +390,7 @@ server <- function(input, output) {
       filter(Events == input$events_select | (input$events_select == "All Events"))
   })
   
-  
+  #table for q4 education
   output$mean_edu_data <- renderTable({
     df %>%
       filter(Year == input$year_map) %>%
@@ -398,6 +398,8 @@ server <- function(input, output) {
       arrange(-Education)
     
   })
+  
+  #table for q4 economy
   output$mean_eco_data <- renderTable({
     df %>%
       filter(Year == input$year_map) %>%
@@ -406,6 +408,7 @@ server <- function(input, output) {
     
   })
   
+  #text analysis for q4 edu
   output$mean_world_edu <- renderText({
     mean_grad <- world_mean %>% 
       filter(Year == input$year_map) %>% 
@@ -413,11 +416,12 @@ server <- function(input, output) {
     paste("The world average graduation rate in",input$year_map,"is",round(mean_grad, digits = 2),"%.")
   })
   
+  #text analysis for q4 eco
   output$mean_world_eco <- renderText({
     mean_gdp <- world_mean %>% 
       filter(Year == input$year_map) %>% 
       pull(mean_gdp)
-    paste("The world average GDP (in US Dollars) in",input$year_map,"is $",round(mean_gdp, digits = 2),".")
+    paste("The world average GDP (in US Dollars) in",input$year_map,"is $",round(mean_gdp, digits = 2,"."))
   })
   
   
