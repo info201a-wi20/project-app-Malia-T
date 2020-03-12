@@ -58,8 +58,6 @@ home <- tabPanel(
        )
     )
   ), 
-  
-  
   p("We chose this topic, as we believe that education is a very essential tool to a person's overall success in life irrespective of age. Just like every human being requires oxygen to survive, 
    education too is very essential to survive in this world. Education provides people the knowledge and skills they need in order to survive. 
    By analyzing these questions relating to education and how the economy rates of countries affect education - we hope to be able to better 
@@ -115,9 +113,8 @@ q1 <- tabPanel(
       It is important to note that there are significant outliers in the data that have showed up on the plot. 
       In the case of Argentina, the trend line seems to be showing a positive relation; as GDP increases, the graduation rate increases. 
       A strong correlation between mean GDP and mean rate of graduation would suggest more devastating consequences for developing countries, or countries with a lower GDP who are not as economically successful. 
-      A cycle in which countries that are lower in GDP additionally have lower college education rates is doomed to continue in such a pattern. Of course, this data is not accounting for how many individuals go abroad to achieve a higher education, so perhaps that could be worth looking into as well."),
-      
-      
+      A cycle in which countries that are lower in GDP additionally have lower college education rates is doomed to continue in such a pattern. Of course, this data is not accounting for how many individuals go 
+        abroad to achieve a higher education, so perhaps that could be worth looking into as well."),
     ),
     mainPanel(
       tabsetPanel(
@@ -129,8 +126,7 @@ q1 <- tabPanel(
  
       )
     )
-  )
-)
+  ))
 
 #Question 2 Tab#
 ################
@@ -163,8 +159,12 @@ q2 <- tabPanel(
       p(
         tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
       )
+<<<<<<< HEAD
       
     ),
+=======
+    ),position = "left"
+>>>>>>> 831abd42e0968f1466dbd2e54bfa07d211177679
   )
 )
 
@@ -181,8 +181,6 @@ q3 <- tabPanel(
     Since these taxes were increased so much, perhaps many families could not afford to send their children to college, or perhaps they encouraged their child to go to trade school or pursue another option instead. Families also may not have been able to afford to pay for resources and help so that their children had a viable path to college. We found it very interesting to find that the country's GDP was not affected considering an event such as a fiscal cliff in which the name suggests economic consequence. 
     This visualization shows that the people are going to be much more negatively affected by certain events than US economic status ever will be."),
 	
-
-)
   sidebarLayout(
     sidebarPanel(
       radioButtons(inputId = "events_select", label = "Select Certain United States Event to Filter",
@@ -218,7 +216,7 @@ q3 <- tabPanel(
         tableOutput("usa") # Displays usa data frame table on side bar panel
       )
     )
-  )
+  ))
 
 
 #Question 4 Tab#
@@ -238,32 +236,28 @@ q4 <- tabPanel(
       tabPanel("Education", 
                sidebarLayout(
                  mainPanel(plotOutput(outputId = "edu_map_plot")),
-                 sidebarPanel(textOutput("mean_world_edu"),tableOutput("mean_edu_data")),
+                 sidebarPanel(strong(textOutput("mean_world_edu")),tableOutput("mean_edu_data")),
                  position = "left"
                )),
       tabPanel("Economy", 
                sidebarLayout(
                  mainPanel(plotOutput(outputId = "eco_map_plot")),
-                 sidebarPanel(textOutput("mean_world_eco"),tableOutput("mean_eco_data")),
+                 sidebarPanel(strong(textOutput("mean_world_eco")),tableOutput("mean_eco_data")),
                  position = "left"
-               ),
-      )
-    ),
+               ))),
     p("This visualization suggests that the countries with the highest graduation rate tend to be clustered around Scandinavia and Western Europe, Japan, Australia and New Zealand all have very high education rates as well. These same countries generally all had very high GDPs. Particularly this cluster around Scandinavia and Western Europe is of interest.
     One aspect that is apparent here is the amount of missing data that is on the map. Nearly all of Africa is missing besides South Africa. Much of South America is missing, much of the Middle East, and many Eastern European countries have no data. Given this fact, we cannot draw too many conclusions without worlwide comprehensive data. 
     That being said, we can discuss this cluster of success in Scandinavia and Western Europe. [This article](https://www.investopedia.com/articles/managing-wealth/042916/offshore-banking-isnt-illegal-hiding-it.asp) from Investopedia suggests that many very affluent people may keep foreign money in developed nations in offshore bank accounts/tax havens. 
-    This could have an impact on country GDP and actually contribute positively to it; overseas bank accounts can give account holders opportunities to internationally invest, contributing to the foreign country's GDP. As we saw previously, there is actually a strong correlation, outliers aside, between GDP and graduation rates, so this would also make sense for explaining why those countries' graduation rates are high as well."),
-
-
+    This could have an impact on country GDP and actually contribute positively to it; overseas bank accounts can give account holders opportunities to internationally invest, contributing to the foreign country's GDP. As we saw previously, there is actually a strong correlation, outliers aside, between GDP and graduation rates, so this would also make 
+      sense for explaining why those countries' graduation rates are high as well.")
   )
 )
 
 ui <- fluidPage (
   theme = shinytheme("slate"),
   includeCSS("style.css"),
-  #titlePanel("Study on Economic Status and Education Rates by Country"),
   navbarPage(
-    title = "Info 201, AH Team 1",
+    title = "Info 201, H4",
     home,
     q1,
     q2,
@@ -500,7 +494,7 @@ server <- function(input, output) {
     mean_gdp <- world_mean %>% 
       filter(Year == input$year_map) %>% 
       pull(mean_gdp)
-    paste("The world average GDP (in US Dollars) in",input$year_map,"is $",round(mean_gdp, digits = 2,"."))
+    paste("The world average GDP (in US Dollars) in",input$year_map,"is <b>$",round(mean_gdp, digits = 2),"</b>.")
   })
   
   # mean plot for q1
