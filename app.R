@@ -69,26 +69,25 @@ q1 <- tabPanel(
   )
 )
 
-q2 <- tabPanel(
+#Question 2 Tab#
+################
+q2 <- tabPanel( 
   "Education & Econ. Status Ranked",
   titlePanel("Education Rate Rankings Among Countries Worldwide and Their Economic Trend."),
   sidebarLayout(
     sidebarPanel(
       sliderInput(inputId = "country_slider", label = "Select Range Of The Number Of Countries To Show",
-                  min = 1, max = 40, value = 10),
-      tableOutput("mean_data")
+                  min = 1, max = 40, value = 10), # Creates a slider input to select the range of countries to show
+      tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
     ),
     mainPanel(
-      h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"),
+      h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"), # Heading level 3
       p(
-        plotOutput(outputId = "eco_bar_plot")
+        plotOutput(outputId = "eco_bar_plot") # Displays eco_bar_plot bar chart on main panel
       ),
       p(
-        plotOutput(outputId = "edu_bar_plot")
+        plotOutput(outputId = "edu_bar_plot") # Displays edu_bar_plot bar chart on main panel
       ),
-      p(
-        renderTable(mean_data)
-      )
       
     ),
   )
