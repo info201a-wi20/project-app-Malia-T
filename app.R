@@ -24,8 +24,7 @@ home <- tabPanel(
    Our data is from the World Bank and the Organisation for Economic Co-Operation and Development. Our World Bank data shows countries' GDP per capita and the OECD data shows education rates for different countries. OECD has columns of education rates for upper-secondary education, post-secondary education, short-cycle tertiary education, as well as college degrees such as a bachelor's or equivalent. We are focusing on people who obtain bachelor's degrees the first time they enter university.
    The data was collected and distributed by the respective organizations.
    World Bank Data: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar
-   OECD Data: https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES")
-)
+   OECD Data: https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES"))
 
 q1 <- tabPanel(
   "Econ. Status & Grad Rates",
@@ -43,7 +42,7 @@ q1 <- tabPanel(
       )
     )
   )
-)
+  )
 
 q2 <- tabPanel(
   "Education & Econ. Status Ranked"
@@ -52,7 +51,6 @@ q2 <- tabPanel(
 q3 <- tabPanel(
   "US Correlation & US Events"
 )
-
 
 q4 <- tabPanel(
   "Worldwide GDP & Graduation Rate",
@@ -65,8 +63,8 @@ q4 <- tabPanel(
         selected = 2005),
     mainPanel(
       tabsetPanel(
-      tabPanel("Education", plotOutput(outputId = "edu_map_plot")),
-      tabPanel("Economy", plotOutput(outputId = "eco_map_plot")))
+      tabPanel("Education", plotOutput(outputId = "edu_map_plot"),dataTableOutput('edu_table')),
+      tabPanel("Economy", plotOutput(outputId = "eco_map_plot"),dataTableOutput("eco_table"))),
     )
 )
 
@@ -84,11 +82,11 @@ ui <- fluidPage (
 
 
 server <- function(input, output) {
-  
+
   #edu map#
   #########
   output$edu_map_plot <- renderPlot({
-    year_input<- input$year_map
+    year_input <- input$year_map
     edu_input <- df %>% 
       filter(Year == as.integer(year_input))
     where_to_cut <- c(-Inf, 0, 10, 20, 30, 40, 50, 60, Inf)
@@ -105,17 +103,17 @@ server <- function(input, output) {
       guides(fill = guide_legend(title = "Graduation Rate"))
     return(q4_edu_map)
   })
- 
+  
   #eco map#
   ######### 
   output$eco_map_plot <- renderPlot({
-    year_input<- input$year_map
+    year_input <- input$year_map
     eco_input <- df %>% 
       filter(Year == as.integer(year_input))
     where_to_cut <- c(-Inf,0 , 10000, 25000, 40000, 55000, 70000, 85000, Inf)
     label <- c("< 10000%","$10,000 to $25,000", "$25,000 to $40,0000", "$40,000 to $55,000", "$55,000 to $70,000", "$70,000 to $85,000", "$85,000 to $100,000","> $100,000")
-    edu_df <- mutate(eco_input, change_labels = cut(eco_input$Economy, breaks = where_to_cut, labels = label))
-    eco_map_df <- left_join(world_map, edu_df, by = "iso3c")
+    eco_df <- mutate(eco_input, change_labels = cut(eco_input$Economy, breaks = where_to_cut, labels = label))
+    eco_map_df <- left_join(world_map, eco_df, by = "iso3c")
     eco_map_df$change_labels <- factor(eco_map_df$change_labels, levels = rev(levels(eco_map_df$change_labels)))
     q4_eco_map <- ggplot(data = eco_map_df, mapping = aes(x = long, y = lat)) +
       geom_polygon(aes(group = group, fill = change_labels)) +
@@ -126,6 +124,8 @@ server <- function(input, output) {
       guides(fill = guide_legend(title = "GDP Rate"))
     return(q4_eco_map)
   })
+  
+
   output$plot_1_output <- renderPlot({
     ggplot(mean_data,aes(x = mean_gdp,y = mean_grad_rate ))+
       
