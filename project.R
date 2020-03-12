@@ -84,13 +84,13 @@ mean_data <- group_by(df,iso3c) %>%
 # #mean dataframe that has the mean graduation rate and mean gdp rate for
 # #each countries.
 # #the graduation rate and gdp was divided by the total number of years recorded in dataset
-# mean_data <- group_by(df,Country_code) %>% 
-#   summarise(mean_grad_rate = mean(grad_rate), mean_gdp = mean(GDP)) %>%  
+# mean_data <- group_by(df,Country_code) %>%
+#   summarise(mean_grad_rate = mean(grad_rate), mean_gdp = mean(GDP)) %>%
 #   left_join(country_names, by = "Country_code")
-# 
-# #the world mean is the mean grad rate and mean gdp rate of all countries from 2005 to 2017
-# world_mean <- group_by(df, Year) %>% 
-#   summarise(mean_grad_rate = mean(Education),mean_gdp = mean(Economy)) 
+
+#the world mean is the mean grad rate and mean gdp rate of all countries from 2005 to 2017
+world_mean <- group_by(df, Year) %>%
+  summarise(mean_grad_rate = mean(Education),mean_gdp = mean(Economy))
 
 
 
@@ -103,14 +103,25 @@ events <- c("Patient Protection and Affordable Care Act, Dodd-Frank Wall Street 
             "Trans-Pacific Partnership, Joint Comprehensive Plan of Action (aka Iran nuclear deal)", 
             "Presidential race",
             "Trump Tax Act (Tax Cuts and Jobs Act)")
-#only use data from USA
-usa <- df %>% 
+# only use data from USA
+usa <- df %>%
   filter(iso3c == "USA")
 #removed the outlier of data from 2005
 usa <- usa[-c(1),]
 #select only the year, grad_Rate, gdp and events
-usa <- mutate(usa, Events = events) %>% 
+usa <- mutate(usa, Events = events) %>%
   select(Year, Education, Economy, Events)
+
+
+# #only use data from USA
+# usa <- df %>% 
+#   filter(Country_code == "USA")
+# #removed the outlier of data from 2005
+# usa <- usa[-c(1),]
+# #select only the year, grad_Rate, gdp and events
+# usa <- mutate(usa, Events = events) %>% 
+#   select(Year, grad_rate, GDP, Events)
+
 
 #Question 4
 #get world map data
