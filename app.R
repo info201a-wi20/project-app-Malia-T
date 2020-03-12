@@ -4,6 +4,9 @@ library(tidyr)
 library(ggplot2)
 library(maps)
 library(DT)
+library(shinythemes)
+
+#install.packages("shinythemes")
 
 source("project.R")
 
@@ -223,7 +226,8 @@ q4 <- tabPanel(
       ))))
 
 ui <- fluidPage (
-  includeCSS("style.css"),
+  #includeCSS("style.css"),
+  theme = shinytheme("slate"),
   titlePanel("Study on Economic Status and Education Rates by Country"),
   navbarPage(
     title = "Info 201, AH Team 1",
