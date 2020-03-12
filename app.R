@@ -105,8 +105,8 @@ q4 <- tabPanel(
         selected = 2005),
     mainPanel(
       tabsetPanel(
-      tabPanel("Education", plotOutput(outputId = "edu_map_plot"),dataTableOutput('edu_table')),
-      tabPanel("Economy", plotOutput(outputId = "eco_map_plot"),dataTableOutput("eco_table"))),
+      tabPanel("Education", plotOutput(outputId = "edu_map_plot")),
+      tabPanel("Economy", plotOutput(outputId = "eco_map_plot")))
     )
 )
 
@@ -127,6 +127,7 @@ server <- function(input, output) {
 
   #edu map#
   #########
+  
   output$edu_map_plot <- renderPlot({
     year_input <- input$year_map
     edu_input <- df %>% 
