@@ -28,8 +28,8 @@ source("project.R")
   
 
 home <- tabPanel(
-  "Home",
-  titlePanel("Introduction"),
+   "Home",
+   titlePanel("Introduction"),
    p("Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
    Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:
    Is there a relationship between economic status of a country and their graduation rates?
@@ -46,9 +46,11 @@ home <- tabPanel(
    Our data is from the World Bank and the Organisation for Economic Co-Operation and Development. Our World Bank data shows countries' GDP per capita and the OECD data shows education rates for different countries. OECD has columns of education rates for upper-secondary education, post-secondary education, short-cycle tertiary education, as well as college degrees such as a bachelor's or equivalent. We are focusing on people who obtain bachelor's degrees the first time they enter university.
    The data was collected and distributed by the respective organizations."),
   
-   p("World Bank Data: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar"),
+   p(strong(a("World Bank Data", href = "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar"))),
   
-   p("OECD Data: https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES")
+   p(strong(a("OECD Data", href = "https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES"))),
+  
+   p(strong(a("Project Report", href = "https://info201a-wi20.github.io/project-report-Malia-T/")))
 )
 
 #Question 1 Tab#
