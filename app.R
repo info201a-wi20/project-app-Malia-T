@@ -5,13 +5,9 @@ library(ggplot2)
 library(maps)
 
 source("project.R")
-<<<<<<< HEAD
+
 #Data introduction
-=======
->>>>>>> 042448adf4aeac01d25fea9a4885c26facc19f39
 
-
-<<<<<<< HEAD
 ###Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:
 #Is there a relationship between economic status of a country and their graduation rates?
  #This question is aimed to help us finally analyze and answer if there is a relationship between the two factors; if there is a correlation between the two, and if so, the type of correlation (positive, negative).
@@ -29,8 +25,7 @@ source("project.R")
 #**World Bank Data: https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar**
 #**OECD Data: https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES**
   
-=======
->>>>>>> 042448adf4aeac01d25fea9a4885c26facc19f39
+
 home <- tabPanel(
   "Home",
   titlePanel("Introduction"),
@@ -74,7 +69,25 @@ q1 <- tabPanel(
 )
 
 q2 <- tabPanel(
-  "Education & Econ. Status Ranked"
+  "Education & Econ. Status Ranked",
+  titlePanel("Education Rate Rankings Among Countries Worldwide and Their Economic Trend."),
+  sidebarLayout(
+    sidebarPanel(
+      sliderInput(inputId = "country_slider", label = "Select Range Of The Number Of Countries To Show",
+                  min = 1, max = 40, value = 10)
+    ),
+    mainPanel(
+      h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"),
+      p(
+        plotOutput(outputId = "eco_bar_plot")
+      ),
+      p(
+        plotOutput(outputId = "edu_bar_plot")
+      )
+      
+    )
+  )
+  
 )
 
 q3 <- tabPanel(
@@ -116,7 +129,7 @@ server <- function(input, output) {
   #edu map#
   #########
   output$edu_map_plot <- renderPlot({
-    year_input<- input$year_map
+    year_input <- input$year_map
     edu_input <- df %>% 
       filter(Year == as.integer(year_input))
     where_to_cut <- c(-Inf, 0, 10, 20, 30, 40, 50, 60, Inf)
@@ -137,7 +150,7 @@ server <- function(input, output) {
   #eco map#
   ######### 
   output$eco_map_plot <- renderPlot({
-    year_input<- input$year_map
+    year_input <- input$year_map
     eco_input <- df %>% 
       filter(Year == as.integer(year_input))
     where_to_cut <- c(-Inf,0 , 10000, 25000, 40000, 55000, 70000, 85000, Inf)
@@ -154,6 +167,9 @@ server <- function(input, output) {
       guides(fill = guide_legend(title = "GDP Rate"))
     return(q4_eco_map)
   })
+  
+  #eco & edu relationship trend#
+  #########   
   output$plot_1_output <- renderPlot({
     ggplot(mean_data,aes(x = mean_gdp,y = mean_grad_rate ))+
       
@@ -163,6 +179,51 @@ server <- function(input, output) {
       theme_minimal()+
       theme(axis.line = element_line(size = 0.5, linetype = "solid",colour = "black"))
   })
+  
+  #eco bar chart#
+  ######### 
+  output$eco_bar_plot <- renderPlot({
+    mean_data %>%
+      arrange(-mean_data$mean_gdp) %>%
+      head(input$country_slider) %>%
+    ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_gdp))+
+      geom_col(fill = "orange")+
+      labs(y = "GDP in US Dollars",
+           title = "Ranking of Average Education Rate and GDP Between Countries"
+      )+
+      theme_minimal()+
+      theme(axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.title.y = element_text(size = 12),
+            axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 2)),
+            axis.line.y = element_line(size = 0.5, linetype = "solid",
+                                       colour = "black")
+      )
+    
+  })
+  
+  #edu bar chart#
+  ######### 
+  output$edu_bar_plot <- renderPlot({
+    mean_data %>%
+      arrange(-mean_data$mean_gdp) %>%
+      head(input$country_slider) %>%
+    ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_grad_rate))+
+      geom_col(fill = "pink")+
+      labs( x = "Country", 
+            y = "Graduation Rate")+
+      theme_minimal()+
+      theme(axis.text.x = element_text(angle = 90, size = 12,hjust = 1, vjust = 0.25),
+            axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 18)),
+            legend.position = "none",
+            axis.title = element_text(size = 12),
+            axis.line = element_line(size = 0.5, linetype = "solid",
+                                     colour = "black")
+      )    
+    
+  })
+  
 }
 
 shinyApp(ui = ui, server = server)
