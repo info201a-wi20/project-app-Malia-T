@@ -155,7 +155,7 @@ q2 <- tabPanel(
       p(
         tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
       )
-    ),position = "left"
+    ), position = "left"
   )
 )
 
