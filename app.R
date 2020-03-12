@@ -3,6 +3,7 @@ library(wbstats)
 library(tidyr)
 library(ggplot2)
 library(maps)
+library(DT)
 
 source("project.R")
 
@@ -68,24 +69,27 @@ q1 <- tabPanel(
   )
   )
 
-q2 <- tabPanel(
+#Question 2 Tab#
+################
+q2 <- tabPanel( 
   "Education & Econ. Status Ranked",
   titlePanel("Education Rate Rankings Among Countries Worldwide and Their Economic Trend."),
   sidebarLayout(
     sidebarPanel(
       sliderInput(inputId = "country_slider", label = "Select Range Of The Number Of Countries To Show",
-                  min = 1, max = 40, value = 10)
+                  min = 1, max = 40, value = 10), # Creates a slider input to select the range of countries to show
+      tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
     ),
     mainPanel(
-      h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"),
+      h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"), # Heading level 3
       p(
-        plotOutput(outputId = "eco_bar_plot")
+        plotOutput(outputId = "eco_bar_plot") # Displays eco_bar_plot bar chart on main panel
       ),
       p(
-        plotOutput(outputId = "edu_bar_plot")
-      )
+        plotOutput(outputId = "edu_bar_plot") # Displays edu_bar_plot bar chart on main panel
+      ),
       
-    )
+    ),
   )
   
 )
@@ -170,7 +174,7 @@ server <- function(input, output) {
   
 
   #eco & edu relationship trend#
-  #########   
+  ##############################   
   output$plot_1_output <- renderPlot({
     ggplot(mean_data,aes(x = mean_gdp,y = mean_grad_rate ))+
       
@@ -182,7 +186,7 @@ server <- function(input, output) {
   })
   
   #eco bar chart#
-  ######### 
+  ############### 
   output$eco_bar_plot <- renderPlot({
     mean_data %>%
       arrange(-mean_data$mean_gdp) %>%
@@ -195,7 +199,6 @@ server <- function(input, output) {
       theme_minimal()+
       theme(axis.title.x=element_blank(),
             axis.text.x=element_blank(),
-            axis.ticks.x=element_blank(),
             axis.title.y = element_text(size = 12),
             axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 2)),
             axis.line.y = element_line(size = 0.5, linetype = "solid",
@@ -205,7 +208,7 @@ server <- function(input, output) {
   })
   
   #edu bar chart#
-  ######### 
+  ###############
   output$edu_bar_plot <- renderPlot({
     mean_data %>%
       arrange(-mean_data$mean_gdp) %>%
@@ -224,6 +227,17 @@ server <- function(input, output) {
       )    
     
   })
+  
+  
+  #Mean Data Table for Question 2#
+  ################################
+  output$mean_data <- renderTable({
+    mean_data %>%
+      arrange(-mean_data$mean_gdp) %>%
+      head(input$country_slider)
+  
+  })
+  
   
 }
 
