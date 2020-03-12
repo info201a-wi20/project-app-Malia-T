@@ -181,6 +181,7 @@ q4 <- tabPanel(
 )))
 
 ui <- fluidPage (
+  includeCSS("style.css"),
   titlePanel("Study on Economic Status and Education Rates by Country"),
   navbarPage(
     title = "Info 201, AH Team 1",
