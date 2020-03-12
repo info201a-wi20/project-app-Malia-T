@@ -51,6 +51,8 @@ home <- tabPanel(
    p("OECD Data: https://stats.oecd.org/Index.aspx?datasetcode=EAG_GRAD_ENTR_RATES")
 )
 
+#Question 1 Tab#
+################
 q1 <- tabPanel(
   "Econ. Status & Grad Rates",
   titlePanel("Is there a relationship between economic 
@@ -76,9 +78,8 @@ q2 <- tabPanel(
   titlePanel("Education Rate Rankings Among Countries Worldwide and Their Economic Trend."),
   sidebarLayout(
     sidebarPanel(
-      sliderInput(inputId = "country_slider", label = "Select Range Of The Number Of Countries To Show",
-                  min = 1, max = 40, value = 10), # Creates a slider input to select the range of countries to show
-      tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
+      sliderInput(inputId = "country_slider", label = "Select The Number Of Countries To Show",
+                  min = 1, max = 40, value = 10) # Creates a slider input to select the number of countries to display on the bar graph
     ),
     mainPanel(
       h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"), # Heading level 3
@@ -88,16 +89,62 @@ q2 <- tabPanel(
       p(
         plotOutput(outputId = "edu_bar_plot") # Displays edu_bar_plot bar chart on main panel
       ),
+      p(
+        tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
+      )
       
     ),
   )
   
 )
 
+#Question 3 Tab#
+################
 q3 <- tabPanel(
-  "US Correlation & US Events"
+  "US Correlation & US Events",
+  titlePanel("Comparing Higher Education Rates and Economy based on US Events"),
+  sidebarLayout(
+    sidebarPanel(
+      # sliderInput(inputId = "year_slider", label = "Select Range Of Years to Filter",
+      #             min = 2010, max = 2017, value = c(2010,2017)) # Creates a slider input to select the range of years to show
+      selectInput(inputId = "events_select", label = "Select Certain United States Event to Filter",
+                  choices = list("All Events",
+                                 "Patient Protection and Affordable Care Act, Dodd-Frank Wall Street Reform and Consumer Protection Act",
+                                 "Japan Tohoku earthquake and tsunami", 
+                                 "U.S. Fiscal cliff",
+                                 "Budget sequestration",
+                                 "Quantitative easing (QE) ends (aka large-scale asset purchases)", 
+                                 "Trans-Pacific Partnership, Joint Comprehensive Plan of Action (aka Iran nuclear deal)", 
+                                 "Presidential race",
+                                 "Trump Tax Act (Tax Cuts and Jobs Act)"), 
+                  selected = "All Events")
+    ),
+    mainPanel(
+      h3("How does the correlation of US higher education rates vs. economy look with respect to US events?"), # Heading level 3
+      tabsetPanel(
+        tabPanel(
+          "Gross Domestic Product (GDP)",
+          plotOutput(outputId = "event_gdp") # Displays event_gdp line chart on main panel
+        ),
+        tabPanel(
+          "Graduation Rate",
+          plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
+        ),
+        tabPanel(
+          "GDP & Graduation Rates"#,
+          # plotOutput(outputId = "event_gdp"), # Displays event_gdp line chart on main panel
+          # plotOutput(outputId = "event_grad") # Displays event_grad line chart on main panel
+        )
+      ),
+      p(
+        tableOutput("usa") # Displays usa data frame table on side bar panel
+      )
+    )
+  )
 )
 
+#Question 4 Tab#
+################
 q4 <- tabPanel(
   "Worldwide GDP & Graduation Rate",
       #select year#
@@ -247,6 +294,53 @@ server <- function(input, output) {
       head(input$country_slider)
   
   })
+  
+  #event gdp chart for Question 3#
+  ################################
+  output$event_gdp <- renderPlot({
+    usa %>%
+      filter(Events == input$events_select | (input$events_select == "All Events")) %>%
+      ggplot(aes(x = Year,y = GDP)) +
+      geom_point(size = 3)+
+      geom_line()+
+      labs(y = "GDP in US Dollars")+
+      scale_x_continuous(breaks=seq(2010, 2017, 1))+
+      theme_minimal()+
+      theme(axis.title = element_text(size = 12),
+            axis.text.x = element_text( size = 12),
+            axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 18)),
+            axis.line = element_line(size = 0.5, linetype = "solid",
+                                     colour = "black")
+      )
+  })
+  
+  #event grad chart for Question 3#
+  #################################
+  output$event_grad <- renderPlot({
+    usa %>%
+      filter(Events == input$events_select | (input$events_select == "All Events")) %>%
+      ggplot(aes(x = Year,y = grad_rate)) +
+      geom_point(size = 3)+
+      geom_line()+
+      labs(y = "Graduation Rate %")+
+      scale_x_continuous(breaks=seq(2010, 2017, 1))+
+      theme_minimal()+
+      theme(axis.title = element_text(size = 12),
+            axis.text.x = element_text( size = 12),
+            axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 18)),
+            axis.line = element_line(size = 0.5, linetype = "solid",
+                                     colour = "black")
+      )
+  })
+  
+  #Dynamic usa Table for Question 3#
+  ########################################
+  output$usa <- renderTable({
+    usa %>%
+      filter(Events == input$events_select | (input$events_select == "All Events"))
+  })
+  
+  
   output$mean_edu_data <- renderTable({
     df %>%
       filter(Year == input$year_map) %>%
