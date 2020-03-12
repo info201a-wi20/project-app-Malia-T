@@ -34,19 +34,44 @@ home <- tabPanel(
   "Home",
   h1("Study on Economic Status and Education Rates by Country"),
   p("Through this project, we are attempting to draw relationships and comparisons between these two variables; economy rates of countries and higher rates of education in different countries.
-   Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:
-   Is there a relationship between economic status of a country and their graduation rates?
-   This question is aimed to help us finally analyze and answer if there is a relationship between the two factors; if there is a correlation between the two, and if so, the type of correlation (positive, negative).
-   Rank the education rate from highest to lowest among countries worldwide, and also show their economic trend.
-   This question will help us understand which country has the highest rates of highest education and which has the lowest rates.
-   How does the correlation of US higher education rates vs. economy look like with respect to US events?
-   This question will help us understand how these values compare to how well the country is faring.
-   Which regions tend to have a higher GDP? Higher graduation rates? What could these results entail?
-   This will help us understand if there is a certain region where more affluent individuals use overseas bank accounts to store money, for example. These findings could prompt many more questions."),
+   Some of the questions that will facilitate in drawing these comparisons between the two variables inlcude:",
+   
+   
+  ul(
+    li("Is there a relationship between economic status of a country and their graduation rates?",
+       ul(
+         li("This question is aimed to help us finally analyze and answer if there is a relationship between the two factors; 
+            if there is a correlation between the two, and if so, the type of correlation (positive, negative).")
+       )),
+    li("   Rank the education rate from highest to lowest among countries worldwide, and also show their economic trend.", 
+       ul(
+         li("This question will help us understand which country has the highest rates of highest education and which has the lowest rates."), 
+       )),
+    li("How does the correlation of US higher education rates vs. economy look like with respect to US events?",
+       ul(
+         li("This question will help us understand how these values compare to how well the country is faring.")
+       )),
+    
+    li("Which regions tend to have a higher GDP? Higher graduation rates? What could these results entail?", 
+       ul(
+         li("This will help us understand if there is a certain region where more affluent individuals use overseas 
+            bank accounts to store money, for example. These findings could prompt many more questions."))
+       )
+    )
+  ), 
+  
   
   p("We chose this topic, as we believe that education is a very essential tool to a person's overall success in life irrespective of age. Just like every human being requires oxygen to survive, 
-   education too is very essential to survive in this world. Education provides people the knowledge and skills they need in order to survive. By analyzing these questions relating to education and how the economy rates of countries affect education - we hope to be able to better understand which countries are doing well in terms of economy and higher rates of education, and which countries are not doing well in these aspects. By understanding these aspects, we as students can work on spreading awareness regarding countries that are low on higher education rates and work in small ways that impact those countries and improve the overall higher educational rates. Thus, we believe that the topic chosen is important. Data Description
-   Our data is from the World Bank and the Organisation for Economic Co-Operation and Development. Our World Bank data shows countries' GDP per capita and the OECD data shows education rates for different countries. OECD has columns of education rates for upper-secondary education, post-secondary education, short-cycle tertiary education, as well as college degrees such as a bachelor's or equivalent. We are focusing on people who obtain bachelor's degrees the first time they enter university.
+   education too is very essential to survive in this world. Education provides people the knowledge and skills they need in order to survive. 
+   By analyzing these questions relating to education and how the economy rates of countries affect education - we hope to be able to better 
+   understand which countries are doing well in terms of economy and higher rates of education, and which countries are not doing well in these aspects. 
+   By understanding these aspects, we as students can work on spreading awareness regarding countries that are low on higher education rates and work in small 
+   ways that impact those countries and improve the overall higher educational rates. Thus, we believe that the topic chosen is important."), 
+
+   h3("Data Description"),
+   p("Our data is from the World Bank and the Organisation for Economic Co-Operation and Development. Our World Bank data shows countries' GDP per capita and the 
+   OECD data shows education rates for different countries. OECD has columns of education rates for upper-secondary education, post-secondary education, 
+   short-cycle tertiary education, as well as college degrees such as a bachelor's or equivalent. We are focusing on people who obtain bachelor's degrees the first time they enter university.
    The data was collected and distributed by the respective organizations."),
   
   p(strong(a("World Bank Data", href = "https://data.worldbank.org/indicator/NY.GDP.PCAP.CD?end=2018&start=2018&view=bar"))),
@@ -72,22 +97,23 @@ q1 <- tabPanel(
       
       plot1_input_country <- selectInput(inputId = "country_select_plot1", label = "Country",
                                          choices = mean_data$Country, 
-                                         selected = "Argentina")
-      
-    ),
-    p("From this plot, we can say that it is apparent that there is a positive correlation between mean GDP and mean graduation rates worldwide. 
+                                         selected = "Argentina"),
+      p("From this plot, we can say that it is apparent that there is a positive correlation between mean GDP and mean graduation rates worldwide. 
       It is important to note that there are significant outliers in the data that have showed up on the plot. 
       In the case of Argentina, the trend line seems to be showing a positive relation; as GDP increases, the graduation rate increases. 
       A strong correlation between mean GDP and mean rate of graduation would suggest more devastating consequences for developing countries, or countries with a lower GDP who are not as economically successful. 
       A cycle in which countries that are lower in GDP additionally have lower college education rates is doomed to continue in such a pattern. Of course, this data is not accounting for how many individuals go abroad to achieve a higher education, so perhaps that could be worth looking into as well."),
+      
+      
+    ),
     mainPanel(
       tabsetPanel(
+        tabPanel("Average", plotOutput(outputId = "plot_1_mean")),
         tabPanel("Worldwide", plotOutput(outputId = "plot_1_output_worldwide")),
         tabPanel("By Country", 
                  p(plotOutput(outputId = "eco_trend")),
                  p(plotOutput(outputId = "edu_trend"))),
-        tabPanel("Average", plotOutput(outputId = "plot_1_mean")),
-        
+ 
       )
     )
   )
@@ -98,7 +124,8 @@ q1 <- tabPanel(
 q2 <- tabPanel( 
   "Education & Econ. Status Ranked",
   titlePanel("Education Rate Rankings Among Countries Worldwide and Their Economic Trend."),
-  p("What we can  gather from this visualization and quantitative data is that there seems to be no outright correlation between a country's economic status and a country's rates of people pursuing higher education. 
+  sidebarLayout(
+    p("What we can  gather from this visualization and quantitative data is that there seems to be no outright correlation between a country's economic status and a country's rates of people pursuing higher education. 
      We saw a bit of this earlier with Luxembourg's perplexing case; the country had one of the lowest graduation rates but the largest GDP. 
      When comparing average education rates and average GDP, there seems to be little to no relationship between the two. 
      All in all, perhaps there is a better way of measuring economic success rather than simply said country's GDP, and it may also just be dependent on the country itself. 
@@ -107,7 +134,7 @@ q2 <- tabPanel(
      From this visualization, however, we can see that although we reordered our GDP in decreasing order, there is not as much of a distinct pattern in the respective graduation rates.
      Within the context of the previous visualization, this plot highlights how much it matters to have variety. Upon first glance, there seems to be little to no relationship in this data, however the relationship is quite strong as we saw in the previous plot. 
      If we wanted to ask more questions, we could look at the data on a country-by-country basis over time so we can analyze those findings as well."),
-  sidebarLayout(
+    
     sidebarPanel(
       sliderInput(inputId = "country_slider", label = "Select The Number Of Countries To Show",
                   min = 1, max = 40, value = 10) # Creates a slider input to select the number of countries to display on the bar graph
@@ -185,21 +212,6 @@ q3 <- tabPanel(
 ################
 q4 <- tabPanel(
   "Worldwide GDP & Graduation Rate",
-<<<<<<< HEAD
-      #select year#
-      #############
-    p("This visualization suggests that the countries with the highest graduation rate tend to be clustered around Scandinavia and Western Europe, Japan, Australia and New Zealand all have very high education rates as well. These same countries generally all had very high GDPs. Particularly this cluster around Scandinavia and Western Europe is of interest.
-       One aspect that is apparent here is the amount of missing data that is on the map. Nearly all of Africa is missing besides South Africa. Much of South America is missing, much of the Middle East, and many Eastern European countries have no data. Given this fact, we cannot draw too many conclusions without worlwide comprehensive data. 
-       That being said, we can discuss this cluster of success in Scandinavia and Western Europe. [This article](https://www.investopedia.com/articles/managing-wealth/042916/offshore-banking-isnt-illegal-hiding-it.asp) from Investopedia suggests that many very affluent people may keep foreign money in developed nations in offshore bank accounts/tax havens. 
-       This could have an impact on country GDP and actually contribute positively to it; overseas bank accounts can give account holders opportunities to internationally invest, contributing to the foreign country's GDP. As we saw previously, there is actually a strong correlation, outliers aside, between GDP and graduation rates, so this would also make sense for explaining why those countries' graduation rates are high as well."),
-    year_input <- selectInput(
-      inputId = "year_map",
-      label = "Year",
-      choices = c(2005,2010,2011,2012,2013,2014,2015,2016,2017),
-      selected = 2005),
-    mainPanel(
-      tabsetPanel(
-=======
   #select year#
   #############
   
@@ -210,7 +222,6 @@ q4 <- tabPanel(
     selected = 2005),
   mainPanel(
     tabsetPanel(
->>>>>>> ae528cc7dbbb96f0a895419bb1b89c01c6755085
       tabPanel("Education", 
                sidebarLayout(
                  mainPanel(plotOutput(outputId = "edu_map_plot")),
@@ -223,7 +234,16 @@ q4 <- tabPanel(
                  sidebarPanel(textOutput("mean_world_eco"),tableOutput("mean_eco_data")),
                  position = "left"
                ),
-      ))))
+      )
+    ),
+    p("This visualization suggests that the countries with the highest graduation rate tend to be clustered around Scandinavia and Western Europe, Japan, Australia and New Zealand all have very high education rates as well. These same countries generally all had very high GDPs. Particularly this cluster around Scandinavia and Western Europe is of interest.
+    One aspect that is apparent here is the amount of missing data that is on the map. Nearly all of Africa is missing besides South Africa. Much of South America is missing, much of the Middle East, and many Eastern European countries have no data. Given this fact, we cannot draw too many conclusions without worlwide comprehensive data. 
+    That being said, we can discuss this cluster of success in Scandinavia and Western Europe. [This article](https://www.investopedia.com/articles/managing-wealth/042916/offshore-banking-isnt-illegal-hiding-it.asp) from Investopedia suggests that many very affluent people may keep foreign money in developed nations in offshore bank accounts/tax havens. 
+    This could have an impact on country GDP and actually contribute positively to it; overseas bank accounts can give account holders opportunities to internationally invest, contributing to the foreign country's GDP. As we saw previously, there is actually a strong correlation, outliers aside, between GDP and graduation rates, so this would also make sense for explaining why those countries' graduation rates are high as well."),
+
+
+  )
+)
 
 ui <- fluidPage (
   theme = shinytheme("slate"),
