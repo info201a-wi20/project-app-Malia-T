@@ -1,7 +1,7 @@
 
 p{
   font-family: 'Helvetica';
-  color: beige;
+  color: papayawhip;
   font-weight: 400;
   font-size: 1.4;
 }
@@ -11,9 +11,16 @@ body{
 }
 
 .navbar-default {
-  background-color: #b1b1b3;
+  background-color: gray;
+  font-weight: 700;
+  color: papayawhip;
 }
 
 .navbar-default:hover {
-  background-color: #aaaaaa
+  background-color: dimgray;
+}
+
+.slider-default {
+  background-color: gray;
+  color: papayawhip;
 }
