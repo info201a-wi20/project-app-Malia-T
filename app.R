@@ -40,22 +40,21 @@ q1 <- tabPanel(
       plot1_input_world <- selectInput(inputId = "year_select_plot1", label = "Year",
                                  choices = c(2005, 2010, 2011, 2012, 2013, 2014, 
                                              2015, 2016, 2017), 
-                                 selected = 2005)
-
-    ),
-    sidebarPanel(
-      plot1_input_country <- selectInput(inputId = "country_select_plot1", label = "Country",
-                                         choices = mean_data$Country, 
-                                         selected = "Argentina")
+                                 selected = 2005),
       
+      plot1_input_country <- selectInput(inputId = "country_select_plot1", label = "Country",
+                                           choices = mean_data$Country, 
+                                           selected = "Argentina")
+
     ),
     mainPanel(
       tabsetPanel(
         tabPanel("Worldwide", plotOutput(outputId = "plot_1_output_worldwide")),
         tabPanel("By Country", 
-                 p(plotOutput(outputId = "eco_trend")),
-                 p(plotOutput(outputId = "edu_trend"))))
+                 p(plotOutput(outputId = "eco_trend", height = 500, width = 700)),
+                 p(plotOutput(outputId = "edu_trend", height = 500, width = 700)))
         
+      )
     )
   )
 )
@@ -190,8 +189,7 @@ server <- function(input, output) {
       theme_minimal() +
       theme(axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"))
     return(q1_plot_edu)
-  }
-  height = 1600)
+  })
   
 }
 
