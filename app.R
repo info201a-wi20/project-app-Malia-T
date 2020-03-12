@@ -156,7 +156,7 @@ server <- function(input, output) {
     return(q1_plot_world)
   })
   
-  # Used for country output
+  # Used for country output: gdp
   output$plot_1_output_country <- renderPlot({
     plot1_input_country <- input$country_select_plot1
     plot1_countries <- df %>% 
@@ -164,6 +164,9 @@ server <- function(input, output) {
     
     q1_plot_countries <- ggplot(data = plot1_countries, aes(x = Year, y = ))
   })
+  
+  # Used for country output: eco
+  
 }
 
 View(plot_1_year_input)
