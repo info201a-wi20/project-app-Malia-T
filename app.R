@@ -282,17 +282,10 @@ server <- function(input, output) {
   })
   
   #edu bar chart#
-<<<<<<< HEAD
   ###############   
   output$edu_bar_plot <- renderPlot({
     mean_data %>%
       arrange(mean_data$mean_grad_rate) %>%
-=======
-  ###############
-  output$edu_bar_plot <- renderPlot({
-    mean_data %>%
-      arrange(-mean_data$mean_gdp) %>%
->>>>>>> 01802c7fd27cdd0a3d0440a703e9eac10d80e772
       head(input$country_slider) %>%
     ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_grad_rate))+
       geom_col(fill = "pink")+
@@ -305,11 +298,8 @@ server <- function(input, output) {
             axis.title = element_text(size = 12),
             axis.line = element_line(size = 0.5, linetype = "solid",
                                      colour = "black")
-<<<<<<< HEAD
-      )
-=======
+      
       )    
->>>>>>> 01802c7fd27cdd0a3d0440a703e9eac10d80e772
     
   })
   
