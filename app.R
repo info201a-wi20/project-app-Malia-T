@@ -134,9 +134,6 @@ q4 <- tabPanel(
 )))
 
 ui <- fluidPage (
-  tags$head(
-    tags$link(rel = "stylesheet", type = "text/css", href = "style.css")
-  ),
   titlePanel("Study on Economic Status and Education Rates by Country"),
   navbarPage(
     title = "Info 201, AH Team 1",
@@ -201,7 +198,11 @@ server <- function(input, output) {
     # used for plotting worldwide over years
     plot1_input_world <- input$year_select_plot1
     plot_1_year_input <- filter(df, Year == as.integer(plot1_input_world))
-    q1_plot_world <- ggplot(data = plot_1_year_input, aes(x = Economy, y = Education ))+
+    
+    plot1_input_df <- left_join(plot_1_year_input, mean_data, by = "Country") 
+    
+    q1_plot_world <- ggplot(data = plot_1_input_df, aes(x = mean_data$mean_gdp, y = mean_data$mean_grad_rate ))+
+      
       geom_point(color = "red")+
       labs(title = "Economy and Rates of Education Change", x = "GDP in USD", y = "Graduation Rate %")+
       geom_smooth(method=lm, se = FALSE)+
@@ -233,7 +234,26 @@ server <- function(input, output) {
     
   })
   
-  
+  #edu bar chart#
+  ###############
+  output$edu_bar_plot <- renderPlot({
+    mean_data %>%
+      arrange(-mean_data$mean_gdp) %>%
+      head(input$country_slider) %>%
+    ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_grad_rate))+
+      geom_col(fill = "pink")+
+      labs( x = "Country", 
+            y = "Graduation Rate")+
+      theme_minimal()+
+      theme(axis.text.x = element_text(angle = 90, size = 12,hjust = 1, vjust = 0.25),
+            axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 18)),
+            legend.position = "none",
+            axis.title = element_text(size = 12),
+            axis.line = element_line(size = 0.5, linetype = "solid",
+                                     colour = "black")
+      )    
+    
+  })
   
   
   #Mean Data Table for Question 2#
@@ -272,7 +292,8 @@ server <- function(input, output) {
       pull(mean_gdp)
     paste("The world average GDP (in US Dollars) in",input$year_map,"is $",round(mean_gdp, digits = 2),".")
   })
- 
+  
+  
   # Used for country output: gdp
   output$eco_trend <- renderPlot({
     plot1_input_country <- input$country_select_plot1
