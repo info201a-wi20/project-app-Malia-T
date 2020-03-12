@@ -40,7 +40,10 @@ q1 <- tabPanel(
       plot1_input_world <- selectInput(inputId = "year_select_plot1", label = "Year",
                                  choices = c(2005, 2010, 2011, 2012, 2013, 2014, 
                                              2015, 2016, 2017), 
-                                 selected = 2005),
+                                 selected = 2005)
+
+    ),
+    sidebarPanel(
       plot1_input_country <- selectInput(inputId = "country_select_plot1", label = "Country",
                                          choices = mean_data$Country, 
                                          selected = "Argentina")
@@ -49,8 +52,9 @@ q1 <- tabPanel(
     mainPanel(
       tabsetPanel(
         tabPanel("Worldwide", plotOutput(outputId = "plot_1_output_worldwide")),
-        tabPanel("By Country", plotOutput(outputId = "plot_1_output_country"))
-      )
+        tabPanel("By Country", 
+                 p(plotOutput(outputId = "eco_trend")),
+                 p(plotOutput(outputId = "edu_trend"))))
         
     )
   )
@@ -157,15 +161,37 @@ server <- function(input, output) {
   })
   
   # Used for country output: gdp
-  output$plot_1_output_country <- renderPlot({
+  output$eco_trend <- renderPlot({
     plot1_input_country <- input$country_select_plot1
     plot1_countries <- df %>% 
-      filter(Country = plot1_input_country)
+      filter(Country == plot1_input_country)
     
-    q1_plot_countries <- ggplot(data = plot1_countries, aes(x = Year, y = ))
+    q1_plot_eco <- ggplot(data = plot1_countries, aes(x = Year, y = Economy)) +
+      geom_point(color = "red") +
+      labs(title = paste("Economy for", plot1_input_country, "Over Time"), x = "Years", y = "GDP in USD") +
+      xlim(2005, 2017) +
+      geom_smooth(method = lm, se = FALSE) +
+      theme_minimal() +
+      theme(axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"))
+    return(q1_plot_eco)
   })
   
-  # Used for country output: eco
+  # Used for country output: edu
+  output$edu_trend <- renderPlot({
+    plot1_input_country <- input$country_select_plot1
+    plot1_countries <- df %>% 
+      filter(Country == plot1_input_country)
+    
+    q1_plot_edu <- ggplot(data = plot1_countries, aes(x = Year, y = Education)) +
+      geom_point(color = "red") +
+      labs(title = paste("Education for", plot1_input_country, "Over Time"), x = "Years", y = "Education Rate") +
+      xlim(2005, 2017) +
+      geom_smooth(method = lm, se = FALSE) +
+      theme_minimal() +
+      theme(axis.line = element_line(size = 0.5, linetype = "solid", colour = "black"))
+    return(q1_plot_edu)
+  }
+  height = 1600)
   
 }
 
