@@ -37,13 +37,17 @@ q1 <- tabPanel(
              status and graduation rates?"),
   sidebarLayout(
     sidebarPanel(
-      sliderInput(inputId = "year_slider", label = "Pick a Year",
-                  min = 2005, max = 2017, value = 2005)
+      plot1_input <- selectInput(inputId = "year_select_plot1", label = "Pick a Year",
+                                 choices = c(2005, 2010, 2011, 2012, 2013, 2014, 
+                                             2015, 2016, 2017), 
+                                 selected = 2005)
     ),
     mainPanel(
-      h3("Relationship Between Economic Status and Graduation Rates"),
-      p(
+      tabsetPanel(
+        h3("Relationship Between Economic Status and Graduation Rates"),
+        p(
         plotOutput(outputId = "plot_1_output")
+        )
       )
     )
   )
@@ -130,8 +134,15 @@ server <- function(input, output) {
       guides(fill = guide_legend(title = "GDP Rate"))
     return(q4_eco_map)
   })
+  
   output$plot_1_output <- renderPlot({
-    ggplot(mean_data,aes(x = mean_gdp,y = mean_grad_rate ))+
+    # used for plotting years
+    plot_1_input <- input$year_select_plot1
+    plot_1_year_df <- df %>% 
+      filter(Year == as.integer(year_slider))
+      
+    
+    q1_plot <- ggplot(plot_1_input_df, aes(x = mean_gdp, y = mean_grad_rate ))+
       
       geom_point(color = "red")+
       labs(title = "Economy and Rates of Education Change", x = "GDP in USD", y = "Graduation Rate %")+
