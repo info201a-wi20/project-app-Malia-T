@@ -262,7 +262,7 @@ server <- function(input, output) {
   ############### 
   output$eco_bar_plot <- renderPlot({
     mean_data %>%
-      arrange(-mean_data$mean_gdp) %>%
+      arrange(mean_data$mean_gdp) %>%
       head(input$country_slider) %>%
     ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_gdp))+
       geom_col(fill = "orange")+
@@ -280,7 +280,26 @@ server <- function(input, output) {
     
   })
   
-  
+  #edu bar chart#
+  ###############   
+  output$edu_bar_plot <- renderPlot({
+    mean_data %>%
+      arrange(mean_data$mean_grad_rate) %>%
+      head(input$country_slider) %>%
+    ggplot(aes(x = reorder(Country, -mean_gdp), y = mean_grad_rate))+
+      geom_col(fill = "pink")+
+      labs( x = "Country", 
+            y = "Graduation Rate")+
+      theme_minimal()+
+      theme(axis.text.x = element_text(angle = 90, size = 12,hjust = 1, vjust = 0.25),
+            axis.text.y = element_text(margin = margin(t = 0, r = 0, b = 0, l = 18)),
+            legend.position = "none",
+            axis.title = element_text(size = 12),
+            axis.line = element_line(size = 0.5, linetype = "solid",
+                                     colour = "black")
+      )
+    
+  })
   
   
   #Mean Data Table for Question 2#
