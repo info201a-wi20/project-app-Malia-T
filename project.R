@@ -87,7 +87,7 @@ world_mean <- group_by(df, Year) %>%
 
 
 
-#Question 3
+#Question 3 
 events <- c("Patient Protection and Affordable Care Act, Dodd-Frank Wall Street Reform and Consumer Protection Act",
             "Japan Tohoku earthquake and tsunami", 
             "U.S. Fiscal cliff",
