@@ -80,8 +80,7 @@ mean_data <- group_by(df,Country_code) %>%
 
 #the world mean is the mean grad rate and mean gdp rate of all countries from 2005 to 2017
 world_mean <- group_by(df, Year) %>% 
-  summarise(mean_grad_rate = mean(grad_rate),mean_gdp = mean(GDP))
-
+  summarise(mean_grad_rate = mean(grad_rate),mean_gdp = mean(GDP)) 
 
 #Question 4
 #- Which regions tend to have a higher GDP? Higher graduation rates? 
@@ -96,26 +95,4 @@ world_map <- mutate(world_map, iso3c = iso)
 new_col_names <- c("iso3c", "Country","Year", "Education","Economy")
 colnames(df) <- new_col_names
 
-##education map##
-#################
-
-#devide the mean_grad_rate dataset into categories
-where_to_cut <- c(-Inf, 0, 10, 20, 30, 40, 50, 60, Inf)
-label <- c("0%","0% to 10%", "10% to 20%", "20% to 30%", "30% to 40%", "40% to 50%", "50% to 60%","> 60%")
-edu_df <- mutate(edu_input, change_labels = cut(edu_input$Education, breaks = where_to_cut, labels = label))
-
-#join them
-grad_map_df <- left_join(world_map, edu_df, by = "iso3c")
-
-#make the label in the reverse order
-grad_map_df$change_labels <- factor(grad_map_df$change_labels, levels = rev(levels(grad_map_df$change_labels)))
-
-#plot in a map
-q4_edu_map <- ggplot(data = grad_map_df, mapping = aes(x = long, y = lat)) +
-  geom_polygon(aes(group = group, fill = change_labels)) +
-  scale_fill_brewer(palette = "BuPu",direction = -1) +
-  coord_quickmap() +
-  labs(title = "Worldwide Graduation Rate") +
-  theme_void()+
-  guides(fill = guide_legend(title = "Graduation Rate"))
 
