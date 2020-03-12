@@ -76,9 +76,12 @@ q1 <- tabPanel(
   "Econ. Status & Grad Rates",
   titlePanel("Is there a relationship between economic 
              status and graduation rates?"),
-  p("The Economy and Rates of education change graph shows a positive relationship. It shows that as the GDP in USD increases, the relative graduation rates also increase. This means that as the economy of the country does well, the more the percentage of people are able to attend and complete their college degrees."),
   sidebarLayout(
     sidebarPanel(
+      p("The Economy and Rates of education change graph shows a positive relationship. 
+      It shows that as the GDP in USD increases, the relative graduation rates also 
+      increase. This means that as the economy of the country does well, the more the 
+      percentage of people are able to attend and complete their college degrees."),
       plot1_input_world <- selectInput(inputId = "year_select_plot1", label = "Year",
                                        choices = c(2005, 2010, 2011, 2012, 2013, 2014, 
                                                    2015, 2016, 2017), 
@@ -92,7 +95,7 @@ q1 <- tabPanel(
       In the case of Argentina, the trend line seems to be showing a positive relation; as GDP increases, the graduation rate increases. 
       A strong correlation between mean GDP and mean rate of graduation would suggest more devastating consequences for developing countries, or countries with a lower GDP who are not as economically successful. 
       A cycle in which countries that are lower in GDP additionally have lower college education rates is doomed to continue in such a pattern. Of course, this data is not accounting for how many individuals go 
-        abroad to achieve a higher education, so perhaps that could be worth looking into as well."),
+        abroad to achieve a higher education, so perhaps that could be worth looking into as well.")
     ),
     mainPanel(
       tabsetPanel(
@@ -100,11 +103,10 @@ q1 <- tabPanel(
         tabPanel("Worldwide", plotOutput(outputId = "plot_1_output_worldwide")),
         tabPanel("By Country", 
                  p(plotOutput(outputId = "eco_trend")),
-                 p(plotOutput(outputId = "edu_trend"))),
- 
-      )
-    )
-  ))
+                 p(plotOutput(outputId = "edu_trend")))
+      ))
+  )
+  )
 
 #Question 2 Tab#
 ################
@@ -186,9 +188,7 @@ q3 <- tabPanel(
           p(plotOutput(outputId = "event_grad_tab3")) # Displays event_grad line chart on main panel
         )
       ),
-      p(
-        tableOutput("usa") # Displays usa data frame table on side bar panel
-      )
+      p(tableOutput("usa")) # Displays usa data frame table on side bar panel
     )
   ))
 
