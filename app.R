@@ -28,7 +28,7 @@ source("project.R")
 
 #install.packages("shinythemes")
 
-#source("project.R")
+source("project.R")
 #source("ui.R")
 #source("server.R")
 
@@ -138,8 +138,8 @@ q1 <- tabPanel(
 
 #Question 2 Tab#
 ################
-q2 <- tabPanel( 
-  "Education & Econ. Status Ranked",
+q2 <- tabPanel(
+ "Education & Econ. Status Ranked",
   titlePanel("Education Rate Rankings Among Countries Worldwide and Their Economic Trend."),
   sidebarLayout(
     p("What we can  gather from this visualization and quantitative data is that there seems to be no outright correlation between a country's economic status and a country's rates of people pursuing higher education.
@@ -153,6 +153,7 @@ q2 <- tabPanel(
      If we wanted to ask more questions, we could look at the data on a country-by-country basis over time so we can analyze those findings as well."),
 
     sidebarPanel(
+<<<<<<< HEAD
       sliderInput(inputId = "country_slider", label = "Select The Number Of Countries To Show",
                   min = 1, max = 40, value = 10) # Creates a slider input to select the number of countries to display on the bar graph
     ),
@@ -168,8 +169,23 @@ q2 <- tabPanel(
     #     tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
     #   )
     # )
+=======
+      sliderInput(inputId = "country_slider", label = "Select The Number Of Countries To Show",min = 1, max = 40, value = 10), # Creates a slider input to select the number of countries to display on the bar graph
+    mainPanel(
+      h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"), # Heading level 3
+      p(
+        plotOutput(outputId = "eco_bar_plot") # Displays eco_bar_plot bar chart on main panel
+      ),
+      p(
+        plotOutput(outputId = "edu_bar_plot") # Displays edu_bar_plot bar chart on main panel
+      ),
+      p(
+        tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
+      )
+    ), position = "left"
+>>>>>>> 189571f69c9d6633f5ea2eafc5dd546ef22e0555
   )
-)
+))
 
 #Question 3 Tab#
 ################
@@ -255,6 +271,10 @@ q4 <- tabPanel(
   )
 )
 
+<<<<<<< HEAD
+=======
+##############################################################
+>>>>>>> 189571f69c9d6633f5ea2eafc5dd546ef22e0555
 ui <- fluidPage (
   theme = shinytheme("slate"),
   includeCSS("style.css"),
@@ -262,12 +282,16 @@ ui <- fluidPage (
     title = "Info 201, H4",
     home,
     q1,
-    q2,
+  # q2,
     q3,
     q4
   )
 )
+<<<<<<< HEAD
 
+=======
+##############################################################
+>>>>>>> 189571f69c9d6633f5ea2eafc5dd546ef22e0555
 server <- function(input, output) {
   
   #edu map#
