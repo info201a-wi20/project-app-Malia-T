@@ -128,8 +128,12 @@ q2 <- tabPanel(
     
     sidebarPanel(
       sliderInput(inputId = "country_slider", label = "Select The Number Of Countries To Show",
-                  min = 1, max = 40, value = 10) # Creates a slider input to select the number of countries to display on the bar graph
-    ),
+                  min = 1, max = 40, value = 10), # Creates a slider input to select the number of countries to display on the bar graph
+      p(
+        tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
+      )
+      
+      ),
     mainPanel(
       h3("Comparing the Ranks of Education Rate from Highest to Lowest Among Countries Worldwide and Their Economic Trend"), # Heading level 3
       p(
@@ -137,11 +141,7 @@ q2 <- tabPanel(
       ),
       p(
         plotOutput(outputId = "edu_bar_plot") # Displays edu_bar_plot bar chart on main panel
-      ),
-      p(
-        tableOutput("mean_data") # Displays mean_data data frame table on side bar panel
       )
-      
     ),
   )
 )
@@ -235,7 +235,7 @@ q4 <- tabPanel(
 
 
   )
-)))
+))
 
 ui <- fluidPage (
   theme = shinytheme("slate"),
