@@ -243,9 +243,7 @@ server <- function(input, output) {
     plot1_input_world <- input$year_select_plot1
     plot_1_year_input <- filter(df, Year == as.integer(plot1_input_world))
     
-    plot1_input_df <- left_join(plot_1_year_input, mean_data, by = "Country") 
-    
-    q1_plot_world <- ggplot(data = plot_1_input_df, aes(x = mean_data$mean_gdp, y = mean_data$mean_grad_rate ))+
+    q1_plot_world <- ggplot(data = plot_1_year_input, aes(x = Economy, y = Education ))+
       
       geom_point(color = "red")+
       labs(title = "Economy and Rates of Education Change", x = "GDP in USD", y = "Graduation Rate %")+
