@@ -425,6 +425,7 @@ server <- function(input, output) {
     paste("The world average GDP (in US Dollars) in",input$year_map,"is $",round(mean_gdp, digits = 2,"."))
   })
   
+  # mean plot for q1
   output$plot_1_mean <- renderPlot({
     mean_plot <- ggplot(mean_data,aes(x = mean_gdp,y = mean_grad_rate ))+
       geom_point(color = "red")+
