@@ -474,7 +474,7 @@ server <- function(input, output) {
     mean_gdp <- world_mean %>% 
       filter(Year == input$year_map) %>% 
       pull(mean_gdp)
-    paste("The world average GDP (in US Dollars) in",input$year_map,"is <b>$",round(mean_gdp, digits = 2),"</b>.")
+    paste("The world average GDP (in US Dollars) in",input$year_map,"is $",round(mean_gdp, digits = 2),".")
   })
   
   # mean plot for q1
